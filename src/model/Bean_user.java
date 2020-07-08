@@ -6,6 +6,13 @@ public class Bean_user {
 	private int manager;
 	private String name,user_pwd,phone_number,mail,city,user_id;
 	private Timestamp register_time;
+	private int vip;
+	public int getVip() {
+		return vip;
+	}
+	public void setVip(int vip) {
+		this.vip = vip;
+	}
 	public String getUser_id() {
 		return user_id;
 	}

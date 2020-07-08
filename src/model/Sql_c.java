@@ -28,7 +28,8 @@ public class Sql_c {
 		}
 		return pt;
 	}
-	public java.sql.PreparedStatement getPt()  {		
+	public java.sql.PreparedStatement getPt()  {	
+		
 		return pt;
 	}
 	public java.sql.ResultSet getRs()  {
@@ -53,12 +54,18 @@ public class Sql_c {
 		return null;
 	}
 	public void close() throws SQLException {
-		pt.close();
-		rs.close();
+		if(pt!=null) {
+			pt.close();
+		}
+		if(rs!=null)
+			rs.close();
 	}
 	public void close_all() throws SQLException {	
-		pt.close();
-		rs.close();
+		if(pt!=null) {
+			pt.close();
+		}
+		if(rs!=null)
+			rs.close();
 		conn.close();
 	}
 }

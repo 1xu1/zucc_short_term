@@ -1,0 +1,270 @@
+drop table if exists address;
+
+drop table if exists comment;
+
+drop table if exists discount_coupon;
+
+drop table if exists md_list;
+
+drop table if exists me_recommend;
+
+drop table if exists meet_discount;
+
+drop table if exists menu;
+
+drop table if exists order_more;
+
+drop table if exists pro_shop;
+
+drop table if exists production;
+
+drop table if exists promotion;
+
+drop table if exists type;
+
+drop table if exists u_order;
+
+drop table if exists user;
+
+/*==============================================================*/
+/* Table: address                                               */
+/*==============================================================*/
+create table address
+(
+   address_id           int not null,
+   user_id              char(20),
+   province             char(20),
+   a_city               char(20),
+   area                 char(20),
+   a_address            char(30),
+   con_name             char(20),
+   con_phone            numeric(8,0),
+   primary key (address_id)
+);
+
+/*==============================================================*/
+/* Table: comment                                               */
+/*==============================================================*/
+create table comment
+(
+   user_id              char(20) not null,
+   pro_id               int not null,
+   cm_star              int,
+   cm_content           char(255),
+   cm_data              timestamp,
+   cm_picture           char(255),
+   primary key (user_id, pro_id)
+);
+
+/*==============================================================*/
+/* Table: discount_coupon                                       */
+/*==============================================================*/
+create table discount_coupon
+(
+   dis_id               int not null,
+   user_id              char(20),
+   dis_content          char(255),
+   dis_amout            float,
+   cut_amout            float,
+   start_date           timestamp,
+   primary key (dis_id)
+);
+
+/*==============================================================*/
+/* Table: md_list                                               */
+/*==============================================================*/
+create table md_list
+(
+   pro_id               int not null,
+   md_id                int not null,
+   start_date           timestamp,
+   end_date             timestamp,
+   primary key (pro_id, md_id)
+);
+
+/*==============================================================*/
+/* Table: me_recommend                                          */
+/*==============================================================*/
+create table me_recommend
+(
+   me_id                int not null,
+   pro_id               int not null,
+   description          char(255),
+   primary key (me_id, pro_id)
+);
+
+/*==============================================================*/
+/* Table: meet_discount                                         */
+/*==============================================================*/
+create table meet_discount
+(
+   md_id                int not null,
+   md_content           char(255),
+   md_quatity           int,
+   discount             float,
+   end_date             timestamp,
+   start_date           timestamp,
+   primary key (md_id)
+);
+
+/*==============================================================*/
+/* Table: menu                                                  */
+/*==============================================================*/
+create table menu
+(
+   me_id                int not null,
+   me_name              char(20),
+   me_usage             char(255),
+   me_step              char(255),
+   me_picture           char(255),
+   primary key (me_id)
+);
+
+/*==============================================================*/
+/* Table: order_more                                            */
+/*==============================================================*/
+create table order_more
+(
+   order_id             int not null,
+   pro_id               int not null,
+   md_id                int not null,
+   quatity              int,
+   price                float,
+   discount             float,
+   primary key (order_id, pro_id, md_id)
+);
+
+/*==============================================================*/
+/* Table: pro_shop                                              */
+/*==============================================================*/
+create table pro_shop
+(
+   shop_id              int not null,
+   user_id              char(20),
+   food_id              int,
+   quatity              int,
+   state                char(20),
+   primary key (shop_id)
+);
+
+/*==============================================================*/
+/* Table: production                                            */
+/*==============================================================*/
+create table production
+(
+   pro_id               int not null,
+   type_id              int,
+   pro_name             char(20),
+   pro_stock            int,
+   pro_price            float,
+   pro_vip_price        float,
+   pro_specification    char(255),
+   pro_more             char(255),
+   promotion            int,
+   primary key (pro_id)
+);
+
+/*==============================================================*/
+/* Table: promotion                                             */
+/*==============================================================*/
+create table promotion
+(
+   pr_id                int not null,
+   pro_id               int,
+   pr_price             float,
+   pr_quatity           int,
+   start_date           timestamp,
+   end_date             timestamp,
+   primary key (pr_id)
+);
+
+/*==============================================================*/
+/* Table: type                                                  */
+/*==============================================================*/
+create table type
+(
+   type_id              int not null,
+   type_name            char(20),
+   count                int,
+   description          char(255),
+   primary key (type_id)
+);
+
+/*==============================================================*/
+/* Table: u_order                                               */
+/*==============================================================*/
+create table u_order
+(
+   order_id             int not null,
+   address_id           int,
+   user_id              char(20),
+   pre_price            float,
+   price                float,
+   arrived_time         timestamp,
+   order_state          char(20),
+   primary key (order_id)
+);
+
+/*==============================================================*/
+/* Table: user                                                  */
+/*==============================================================*/
+create table user
+(
+   user_id              char(20) not null,
+   user_pwd             char(20) not null,
+   register_time        timestamp,
+   manager              int,
+   name                 char(20),
+   phone_number         char(20),
+   mail                 char(20),
+   city                 char(20),
+   primary key (user_id)
+);
+
+alter table address add constraint FK_Relationship_7 foreign key (user_id)
+      references user (user_id) on delete restrict on update restrict;
+
+alter table comment add constraint FK_comment foreign key (user_id)
+      references user (user_id) on delete restrict on update restrict;
+
+alter table comment add constraint FK_comment2 foreign key (pro_id)
+      references production (pro_id) on delete restrict on update restrict;
+
+alter table discount_coupon add constraint FK_Relationship_10 foreign key (user_id)
+      references user (user_id) on delete restrict on update restrict;
+
+alter table md_list add constraint FK_md_list foreign key (pro_id)
+      references production (pro_id) on delete restrict on update restrict;
+
+alter table md_list add constraint FK_md_list2 foreign key (md_id)
+      references meet_discount (md_id) on delete restrict on update restrict;
+
+alter table me_recommend add constraint FK_me_recommend foreign key (me_id)
+      references menu (me_id) on delete restrict on update restrict;
+
+alter table me_recommend add constraint FK_me_recommend2 foreign key (pro_id)
+      references production (pro_id) on delete restrict on update restrict;
+
+alter table order_more add constraint FK_order_more foreign key (order_id)
+      references u_order (order_id) on delete restrict on update restrict;
+
+alter table order_more add constraint FK_order_more2 foreign key (pro_id)
+      references production (pro_id) on delete restrict on update restrict;
+
+alter table order_more add constraint FK_order_more3 foreign key (md_id)
+      references meet_discount (md_id) on delete restrict on update restrict;
+
+alter table pro_shop add constraint FK_Relationship_12 foreign key (user_id)
+      references user (user_id) on delete restrict on update restrict;
+
+alter table production add constraint FK_Relationship_3 foreign key (type_id)
+      references type (type_id) on delete restrict on update restrict;
+
+alter table promotion add constraint FK_Relationship_11 foreign key (pro_id)
+      references production (pro_id) on delete restrict on update restrict;
+
+alter table u_order add constraint FK_Relationship_8 foreign key (address_id)
+      references address (address_id) on delete restrict on update restrict;
+
+alter table u_order add constraint FK_Relationship_9 foreign key (user_id)
+      references user (user_id) on delete restrict on update restrict;

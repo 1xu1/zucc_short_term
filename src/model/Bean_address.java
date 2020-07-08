@@ -51,5 +51,13 @@ public class Bean_address {
 	public void setCon_phone(String con_phone) {
 		this.con_phone = con_phone;
 	}
-	
+	public String getCell(int i) {
+		if(i==0) return con_name;
+		else if(i==1) return con_phone;
+		else if(i==2) return province;
+		else if(i==3) return a_city;
+		else if(i==4) return area;
+		else if(i==5) return a_address;
+		else return "";
+	}
 }

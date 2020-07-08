@@ -36,8 +36,14 @@ public class Frm_Main extends JFrame implements ActionListener{
 		dlgLogin=new Frm_Login(this,"登陆",true);
 		dlgLogin.setVisible(true);
 		
+		//载入当前用户数据
+		Bean_user.currentLoginUser=start.Online_Market_Util.user_Manager.load_user_data();
+		
+		
 		dlgIndex=new Frm_Index();
 		dlgIndex.setVisible(true);
+		
+		
 	}
 	public void actionPerformed(ActionEvent e) {
 		

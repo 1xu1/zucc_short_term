@@ -26,8 +26,9 @@ public class Frm_UserData extends JDialog  implements ActionListener{
 	private JTextField city;
 
 	
-	public Frm_UserData(JFrame f,String s, Boolean b) {
-		super(f,s,b);
+	public Frm_UserData(JFrame f,String s, Boolean c) {
+		//super(f,s,c);
+		Bean_user b = start.Online_Market_Util.user_Manager.load_user_data();
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -42,7 +43,10 @@ public class Frm_UserData extends JDialog  implements ActionListener{
 			name = new JTextField();
 			name.setBounds(107, 10, 139, 21);
 			contentPanel.add(name);
+			if(b.getName()!=null)
+				name.setText(b.getName());
 			name.setColumns(10);
+			
 		}
 		{
 			JLabel lblNewLabel = new JLabel("\u7535\u8BDD\u53F7\u7801");
@@ -53,7 +57,10 @@ public class Frm_UserData extends JDialog  implements ActionListener{
 			phone = new JTextField();
 			phone.setColumns(10);
 			phone.setBounds(107, 41, 139, 21);
+			if(b.getPhone_number()!=null)
+				phone.setText(b.getPhone_number());
 			contentPanel.add(phone);
+			
 		}
 		{
 			JLabel lblNewLabel = new JLabel("\u7535\u5B50\u90AE\u7BB1");
@@ -64,7 +71,10 @@ public class Frm_UserData extends JDialog  implements ActionListener{
 			mail = new JTextField();
 			mail.setColumns(10);
 			mail.setBounds(107, 74, 139, 21);
+			if(b.getMail()!=null)
+				mail.setText(b.getMail());
 			contentPanel.add(mail);
+			
 		}
 		{
 			JLabel lblNewLabel = new JLabel("\u57CE\u5E02");
@@ -75,7 +85,10 @@ public class Frm_UserData extends JDialog  implements ActionListener{
 			city = new JTextField();
 			city.setColumns(10);
 			city.setBounds(107, 105, 139, 21);
+			if(b.getCity()!=null)
+				city.setText(b.getCity());
 			contentPanel.add(city);
+			
 		}
 		
 			JPanel buttonPane = new JPanel();

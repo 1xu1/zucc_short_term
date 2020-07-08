@@ -28,14 +28,14 @@ public class User_Manager {
 					throw new BusinessException("有重复的用户名，请重新输入");
 			}
 			s.close();
-			sql="insert into user (user_id,user_pwd,manager,register_time) values(?,?,?,now())";
+			sql="insert into user (user_id,user_pwd,manager,register_time,VIP) values(?,?,?,now(),0)";
 			s.getPt(sql);
 			s.getPt().setString(1, userid);
 			s.getPt().setString(2, pwd);
 			s.getPt().setInt(3, manager);
 			s.getPt().execute();
 			s.close_all();
-			JOptionPane.showMessageDialog(null, "欢迎徐宇翔生鲜市场新成员:"+userid, "注册成功", JOptionPane.OK_OPTION);
+			JOptionPane.showMessageDialog(null, "欢迎徐宇翔生鲜市场新成员:"+userid, "注册成功", JOptionPane.INFORMATION_MESSAGE);
 			return b;
 		}
 		catch(Exception e) {
@@ -138,10 +138,56 @@ public class User_Manager {
 			s.pt.setString(3, b.getMail());
 			s.pt.setString(4, b.getCity());
 			s.pt.setString(5, b.getUser_id());
+			s.pt.execute();
+			
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 		JOptionPane.showMessageDialog(null, "个人信息成功修改", "成功", JOptionPane.INFORMATION_MESSAGE);
+	}
+	public Bean_user load_user_data() {
+		Bean_user b=new Bean_user();
+		Sql_c s=new Sql_c();
+		String sql="select user_id,register_time,manager,name,phone_number,mail,city,VIP "
+				+ "from user "
+				+ "where user_id=?";
+		s.getPt(sql);
+		try {
+			s.pt.setString(1, Bean_user.currentLoginUser.getUser_id());
+			s.rs=s.pt.executeQuery();
+			s.rs.next();
+			b.setUser_id(s.rs.getString(1));
+			b.setRegister_time(s.rs.getTimestamp(2));
+			b.setManager(s.rs.getInt(3));
+			b.setName(s.rs.getString(4));
+			b.setPhone_number(s.rs.getString(5));
+			b.setMail(s.rs.getString(6));
+			b.setCity(s.rs.getString(7));
+			b.setVip(s.rs.getInt(8));
+			Bean_user.currentLoginUser=b;
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return b;
+	}
+	public void add_vip(Bean_user b) {
+		if(b.getVip()==1) {
+			JOptionPane.showMessageDialog(null, "您已经是VIP会员了！", "提示", JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
+		Sql_c s=new Sql_c();
+		String sql="update user set vip=1 where user_id = ?";
+		s.getPt(sql);
+		try {
+			s.pt.setString(1, b.getUser_id());
+			s.pt.execute();
+			
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		JOptionPane.showMessageDialog(null, "欢迎新的VIP成员："+b.getName(), "成功", JOptionPane.INFORMATION_MESSAGE);
 	}
 }
