@@ -28,6 +28,7 @@ import javax.swing.JTable;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 public class Frm_ShopMenu extends JDialog  implements ActionListener{
 
@@ -40,6 +41,11 @@ public class Frm_ShopMenu extends JDialog  implements ActionListener{
 	
 	public Frm_ShopMenu(List<Bean_production> pro_list) {
 		this.pro_list=pro_list;
+		double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+		this.setLocation((int) (width - this.getWidth()) / 2,
+				(int) (height - this.getHeight()) / 2);
+		this.validate();
 		setTitle("\u8D2D\u7269\u8F66");
 		setBounds(100, 100, 450, 510);
 		getContentPane().setLayout(null);
@@ -113,11 +119,14 @@ public class Frm_ShopMenu extends JDialog  implements ActionListener{
 	
 	private JButton cancel_button,ok_button;
 	private JLabel price=null;
+	private Frm_AddSelect dlgAddS=null;
+	
 	public void actionPerformed(ActionEvent e) {
 		// TODO 自动生成的方法存根
 		if(e.getSource()==this.ok_button) {
-			JOptionPane.showMessageDialog(null, "成功购买", "成功", JOptionPane.INFORMATION_MESSAGE);
-			this.pro_list.clear();
+			dlgAddS=new Frm_AddSelect(pro_list,this.pre_price,this.now_price);
+			this.dlgAddS.setVisible(true);
+			//this.pro_list.clear();
 			this.reload_shop_menu();
 		}
 		else if(e.getSource()==this.cancel_button){
@@ -159,20 +168,24 @@ public class Frm_ShopMenu extends JDialog  implements ActionListener{
 		price.setText(calculate_price());
 		//this.pri
 	}
+	private double pre_price=0,now_price=0;
 	private Bean_discount_coupon curCoupon=null;
 	public String calculate_price() {
 		String result;
-		double pre_price=0,price=0;
+		int t=0;
+		pre_price=now_price=0;
 		for(int i=0;i<this.pro_list.size();i++) {
-			pre_price+=this.pro_list.get(i).getPro_price();
+			pre_price+=this.pro_list.get(i).getPro_price()*this.pro_list.get(i).getPro_purchase();
 			if(Bean_user.currentLoginUser.getVip()==1) {
-				price+=this.pro_list.get(i).getVip_price();
+				now_price+=this.pro_list.get(i).getVip_price()*this.pro_list.get(i).getPro_purchase();
+				t=1;
 			}
 		}
-		price=pre_price;
+		if(t==0)
+			now_price=pre_price;
 		
-		double cut=pre_price-price;
-		result="总价:"+pre_price+"-"+cut+"="+price;
+		double cut=pre_price-now_price;
+		result="总价:"+pre_price+"-"+cut+"="+now_price;
 		return result;
 	}
 	

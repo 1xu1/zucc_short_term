@@ -100,37 +100,46 @@ public class Frm_Index extends JFrame implements ActionListener{
 		menu_1 = new JMenu("\u7BA1\u7406\u5458\u9009\u9879");
 		menuBar.add(menu_1);
 		
-		edit_production = new JMenu("\u7F16\u8F91\u5546\u54C1");
-		edit_production.addActionListener(this);
-		menu_1.add(edit_production);
+		pro_manager = new JMenu("\u7BA1\u7406\u5546\u54C1");
+		pro_manager.addActionListener(this);
+		
+		JMenu user_manger = new JMenu("\u7BA1\u7406\u7528\u6237");
+		menu_1.add(user_manger);
+		
+		JMenuItem user_edit = new JMenuItem("\u7F16\u8F91\u7528\u6237\u4FE1\u606F");
+		user_manger.add(user_edit);
+		
+		JMenuItem user_delete = new JMenuItem("\u5220\u9664\u7528\u6237");
+		user_manger.add(user_delete);
+		menu_1.add(pro_manager);
 		
 		add_type = new JMenuItem("\u589E\u6DFB\u79CD\u7C7B");
 		add_type.addActionListener(this);
-		edit_production.add(add_type);
+		pro_manager.add(add_type);
 		
 		delete_type = new JMenuItem("\u5220\u9664\u79CD\u7C7B");
 		delete_type.addActionListener(this);
 		
 		edit_type = new JMenuItem("\u7F16\u8F91\u79CD\u7C7B");
 		edit_type.addActionListener(this);
-		edit_production.add(edit_type);
-		edit_production.add(delete_type);
+		pro_manager.add(edit_type);
+		pro_manager.add(delete_type);
 		
 		add_pro = new JMenuItem("\u4E0A\u67B6\u5546\u54C1");
 		add_pro.addActionListener(this);
-		edit_production.add(add_pro);
+		pro_manager.add(add_pro);
 		
 		delete_pro = new JMenuItem("\u4E0B\u67B6\u5546\u54C1");
 		delete_pro.addActionListener(this);
 		
 		edit_pro = new JMenuItem("\u7F16\u8F91\u5546\u54C1");
 		edit_pro.addActionListener(this);
-		edit_production.add(edit_pro);
-		edit_production.add(delete_pro);
+		pro_manager.add(edit_pro);
+		pro_manager.add(delete_pro);
 		
-		add_coupon = new JMenuItem("\u7F16\u8F91\u6D88\u8D39\u5238");
-		add_coupon.addActionListener(this);
-		menu_1.add(add_coupon);
+		coupon_manager = new JMenuItem("\u7BA1\u7406\u6D88\u8D39\u5238");
+		coupon_manager.addActionListener(this);
+		menu_1.add(coupon_manager);
 		
 		add_menu = new JMenuItem("\u7F16\u8F91\u83DC\u5355");
 		add_menu.addActionListener(this);
@@ -241,7 +250,7 @@ public class Frm_Index extends JFrame implements ActionListener{
 	private JMenuItem load_coupon;
 	private JMenuItem shop_menu;
 	private JMenuItem load_order;
-	private JMenuItem add_coupon;
+	private JMenuItem coupon_manager;
 	private JMenuItem add_menu;
 	private JMenuItem  add_menu_list;
 	private JMenuItem edit_pro_shop;
@@ -286,7 +295,7 @@ public class Frm_Index extends JFrame implements ActionListener{
 			this.dlgShopMenu=new Frm_ShopMenu(this.pro_list);
 			this.dlgShopMenu.setVisible(true);
 		}
-		else if(e.getSource()==this.add_coupon) {
+		else if(e.getSource()==this.coupon_manager) {
 			System.out.print(1);
 		}
 		else if(e.getSource()==this.add_menu) {
@@ -327,9 +336,10 @@ public class Frm_Index extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(null, "请先选中种类", "错误", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			dlgProAdd = new Frm_ProAdd();
+			dlgProAdd = new Frm_ProAdd(this);
 			dlgProAdd.type=curType;
 			dlgProAdd.setVisible(true);
+			//this.reloadTypeTable();
 			curType=null;
 		}
 		else if(e.getSource()==this.edit_pro) {
@@ -347,6 +357,8 @@ public class Frm_Index extends JFrame implements ActionListener{
 				return;
 			}
 			start.Online_Market_Util.production_Manager.delete_pro(curPro);
+			JOptionPane.showMessageDialog(null, "成功下架商品", "成功", JOptionPane.INFORMATION_MESSAGE);
+			this.reloadTypeTable();
 			curPro=null;
 		}
 		else if(e.getSource()==this.button_purchase) {
@@ -408,7 +420,7 @@ public class Frm_Index extends JFrame implements ActionListener{
 	DefaultTableModel pro_model=new DefaultTableModel();
 	private JTable table_pro=new JTable(pro_model);
 	private JButton button_purchase;
-	private JMenu edit_production;
+	private JMenu pro_manager;
 	private JMenuItem add_pro;
 	private JMenuItem delete_pro;
 	private JMenuItem mntmNewMenuItem;

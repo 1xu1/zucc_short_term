@@ -31,8 +31,10 @@ public class Frm_ProAdd extends JDialog  implements ActionListener {
 	private JTextField pro_spe;
 	private JTextField pro_more;
 	private JCheckBox promotion;
+	private Frm_Index f=null;
 	
-	public Frm_ProAdd() {
+	public Frm_ProAdd(Frm_Index f) {
+		this.f=f;
 		setTitle("\u589E\u6DFB\u4EA7\u54C1");
 		setBounds(100, 100, 292, 309);
 		getContentPane().setLayout(null);
@@ -169,6 +171,8 @@ public class Frm_ProAdd extends JDialog  implements ActionListener {
 			
 			start.Online_Market_Util.production_Manager.add_pro(b);
 			JOptionPane.showMessageDialog(null, "成功", "成功增添商品", JOptionPane.INFORMATION_MESSAGE); 
+			f.reloadTypeTable();
+			
 			this.setVisible(false);
 		}
 		else if(e.getSource()==this.cancelButton) {

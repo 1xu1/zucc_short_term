@@ -1,9 +1,9 @@
 package model;
 import java.sql.*;
 public class Bean_u_order {
-	private int order_id,address_id,user_id;
+	private int order_id,address_id;
 	private float pre_price,price;
-	private String order_state;//下单，配送，送达，退货
+	private String order_state,user_id;//下单，配送，送达，退货
 	private Timestamp arrived_time;
 	public int getOrder_id() {
 		return order_id;
@@ -17,11 +17,11 @@ public class Bean_u_order {
 	public void setAddress_id(int address_id) {
 		this.address_id = address_id;
 	}
-	public int getUser_id() {
+	public String getUser_id() {
 		return user_id;
 	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUser_id(String string) {
+		this.user_id = string;
 	}
 	public float getPre_price() {
 		return pre_price;

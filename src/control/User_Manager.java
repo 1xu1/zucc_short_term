@@ -188,6 +188,7 @@ public class User_Manager {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
+		b.setVip(1);
 		JOptionPane.showMessageDialog(null, "欢迎新的VIP成员："+b.getName(), "成功", JOptionPane.INFORMATION_MESSAGE);
 	}
 }

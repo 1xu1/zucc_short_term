@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.BorderLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,6 +30,11 @@ public class Frm_AddAdd extends JDialog  implements ActionListener {
 	private Frm_Address f=null;
 	
 	public Frm_AddAdd(Frm_Address f) {
+		double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+		this.setLocation((int) (width - this.getWidth()) / 2,
+				(int) (height - this.getHeight()) / 2);
+		this.validate();
 		this.f=f;
 		setTitle("\u589E\u6DFB\u5730\u5740");
 		setBounds(100, 100, 292, 270);

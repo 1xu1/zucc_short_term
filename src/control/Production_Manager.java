@@ -231,10 +231,6 @@ public class Production_Manager {
 				s.pt.setInt(7, b.getPromotion());
 				s.pt.setInt(8, b.getPro_id());
 				s.pt.execute();
-				sql="update type set count=count-1 where type_id=?";
-				s.getPt(sql);
-				s.pt.setInt(1, b.getType_id());
-				s.pt.execute();
 				s.close_all();				
 				}
 				catch (SQLException e) {
@@ -244,12 +240,19 @@ public class Production_Manager {
 		}
 		public void delete_pro(Bean_production b) {
 				Sql_c s=new Sql_c();
-				String sql="update production set valid=0 where type_id=?";
+				String sql="update production set valid=0 where pro_id=?";
 				s.getPt(sql);
 				try {
+					s.pt.setInt(1, b.getPro_id());
+					s.pt.execute();
+					sql="update type set count=count-1 where type_id=?";
+					s.getPt(sql);
 					s.pt.setInt(1, b.getType_id());
 					s.pt.execute();
-					
+					sql="update type set count=count-1 where type_id=?";
+					s.getPt(sql);
+					s.pt.setInt(1, b.getType_id());
+					s.pt.execute();
 					s.close_all();
 				} catch (SQLException e) {
 					// TODO 自动生成的 catch 块
