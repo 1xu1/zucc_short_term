@@ -54,7 +54,7 @@ public class Frm_UserData_Display extends JDialog {
 		JLabel user_mail = new JLabel("\u6682\u65E0\u8BE5\u4FE1\u606F");
 		getContentPane().add(user_mail, "cell 3 6");
 		
-		JLabel lblVip = new JLabel("VIP");
+		JLabel lblVip = new JLabel("VIP½ØÖ¹ÈÕÆÚ");
 		getContentPane().add(lblVip, "cell 1 7");
 		
 		JLabel user_vip = new JLabel("\u6682\u65E0\u8BE5\u4FE1\u606F");
@@ -78,12 +78,10 @@ public class Frm_UserData_Display extends JDialog {
 			user_mail.setText(b.getMail());
 		}
 		
-		if(b.getVip()==0) {
-			user_vip.setText("·ñ");
+		if(b.getVip_end_date()!=null) {
+			user_vip.setText(b.getVip_end_date().toString());
 		}
-		else {
-			user_vip.setText("ÊÇ");
-		}
+		
 		
 	}
 

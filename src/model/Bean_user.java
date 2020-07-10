@@ -3,9 +3,21 @@ import java.sql.*;
 
 public class Bean_user {
 	public static Bean_user currentLoginUser=null;
-	private int manager;
+	private int manager,vip_valid=0;
+	public int getVip_valid() {
+		return vip_valid;
+	}
+	public void setVip_valid(int vip_valid) {
+		this.vip_valid = vip_valid;
+	}
 	private String name,user_pwd,phone_number,mail,city,user_id;
-	private Timestamp register_time;
+	private Timestamp register_time,vip_end_date;
+	public Timestamp getVip_end_date() {
+		return vip_end_date;
+	}
+	public void setVip_end_date(Timestamp vip_end_date) {
+		this.vip_end_date = vip_end_date;
+	}
 	private int vip;
 	public int getVip() {
 		return vip;

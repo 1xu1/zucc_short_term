@@ -64,9 +64,7 @@ public class Frm_CouponSelect extends JDialog  implements ActionListener{
 		//shop_menu_table.setBounds(10, 31, 414, 397);
 		//contentPanel.add(shop_menu_table);
 		this.reload_shop_menu();
-		
-			
-			
+				
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBounds(0, 438, 543, 33);

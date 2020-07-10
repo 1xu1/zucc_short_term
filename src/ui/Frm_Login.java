@@ -114,7 +114,12 @@ public class Frm_Login extends JDialog implements ActionListener{
 			String userid=this.edtUserId.getText();
 			String pwd=new String(this.edtPwd.getPassword());
 			try {
-				Bean_user.currentLoginUser= start.Online_Market_Util.user_Manager.login(userid, pwd);
+				Bean_user.currentLoginUser=start.Online_Market_Util.user_Manager.login(userid, pwd);
+				 if(Bean_user.currentLoginUser!=null) {
+					 JOptionPane.showMessageDialog(null, "欢迎进入生鲜市场", "登录成功", JOptionPane.INFORMATION_MESSAGE);	
+				 }
+				 else
+					 return;
 			} catch (BaseException e1) {
 				JOptionPane.showMessageDialog(null, e1.getMessage(), "错误",JOptionPane.ERROR_MESSAGE);
 				return;

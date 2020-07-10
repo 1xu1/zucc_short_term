@@ -40,12 +40,20 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
 public class Frm_Index extends JFrame implements ActionListener{
-
+	JLabel label =null;
 	
 	
 	public Frm_Index() {
+		//System.out.print(Bean_user.currentLoginUser.getVip_end_date().toString());
+		if(Bean_user.currentLoginUser.getVip_end_date()!=null) {
+			long vip_date = Bean_user.currentLoginUser.getVip_end_date().getTime();			
+			if(vip_date>System.currentTimeMillis())				
+				Bean_user.currentLoginUser.setVip_valid(1);
+		}
+		
+		
 		setTitle("\u751F\u9C9C\u5E02\u573A\u9996\u9875");
-
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 829, 583);
 		// ÆÁÄ»¾ÓÖÐÏÔÊ¾
@@ -106,10 +114,10 @@ public class Frm_Index extends JFrame implements ActionListener{
 		JMenu user_manger = new JMenu("\u7BA1\u7406\u7528\u6237");
 		menu_1.add(user_manger);
 		
-		JMenuItem user_edit = new JMenuItem("\u7F16\u8F91\u7528\u6237\u4FE1\u606F");
+		user_edit = new JMenuItem("\u7F16\u8F91\u7528\u6237\u4FE1\u606F");
 		user_manger.add(user_edit);
 		
-		JMenuItem user_delete = new JMenuItem("\u5220\u9664\u7528\u6237");
+		user_delete = new JMenuItem("\u5220\u9664\u7528\u6237");
 		user_manger.add(user_delete);
 		menu_1.add(pro_manager);
 		
@@ -182,8 +190,8 @@ public class Frm_Index extends JFrame implements ActionListener{
 		
 		
 		
-		JLabel label = new JLabel("\u6B22\u8FCE");
-		label.setBounds(10, 498, 54, 15);
+		label = new JLabel("\u6B22\u8FCE");
+		label.setBounds(10, 498, 537, 15);
 		contentPane.add(label);
 		
 		//table_pro = new JTable();
@@ -214,13 +222,14 @@ public class Frm_Index extends JFrame implements ActionListener{
 		if(Bean_user.currentLoginUser.getManager()==0) {
 				this.menu_1.setVisible(false);
 			}
-		//if(Bean_user.currentLoginUser.getName()==null||Bean_user.currentLoginUser.getName())
-		//JLabel lblNewLabel = new JLabel(Bean_user.currentLoginUser.getName());
-		//lblNewLabel.setBounds(10, 421, 54, 15);
-		//contentPane.add(lblNewLabel);
+		
+		
 		
 		this.reloadTypeTable();
-		
+		if(Bean_user.currentLoginUser.getVip_valid()==1)
+			this.label.setText("»¶Ó­×ð¾´µÄVIP»áÔ±£º "+Bean_user.currentLoginUser.getName());
+		else
+			this.label.setText("»¶Ó­×ð¾´ÓÃ»§£º "+Bean_user.currentLoginUser.getName());
 		table_type.addMouseListener(new MouseAdapter (){	
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -261,6 +270,8 @@ public class Frm_Index extends JFrame implements ActionListener{
 	private JMenuItem  add_menu_list;
 	private JMenuItem edit_pro_shop;
 	private JMenu menu_1;
+	private JMenuItem user_edit=null;
+	private JMenuItem user_delete=null;
 	
 	private Frm_ChangePwd dlgChangePwd =null;
 	private Frm_UserData dlgUserData=null;
@@ -396,6 +407,12 @@ public class Frm_Index extends JFrame implements ActionListener{
 		else if(e.getSource()==this.edit_address) {
 			dlgAdd=new Frm_Address();
 			dlgAdd.setVisible(true);
+		}
+		else if(e.getSource()==this.user_edit) {
+			
+		}
+		else if(e.getSource()==this.user_delete) {
+			
 		}
 	}
 
