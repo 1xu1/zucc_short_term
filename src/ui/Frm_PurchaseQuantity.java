@@ -71,13 +71,20 @@ public class Frm_PurchaseQuantity extends JDialog  implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO 自动生成的方法存根
 		if(e.getSource()==this.okButton) {
+			
 			try {
+				if(this.curPro.getPro_stock()<Integer.valueOf(textField.getText())) {
+					JOptionPane.showMessageDialog(null, "购买数量大于存货", "错误", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 				this.curPro.setPro_purchase(Integer.valueOf(textField.getText()));
 			}
 			catch(Exception p) {
-				JOptionPane.showMessageDialog(null, "错误", "请检查输入格式", JOptionPane.ERROR_MESSAGE); 
+				JOptionPane.showMessageDialog(null, "请检查输入格式", "错误", JOptionPane.ERROR_MESSAGE); 
 				p.printStackTrace();
+				return;
 			}
+			
 			this.setVisible(false);
 			this.pro_list.add(curPro);
 			JOptionPane.showMessageDialog(null, "商品成功加入购物车", "成功", JOptionPane.INFORMATION_MESSAGE);

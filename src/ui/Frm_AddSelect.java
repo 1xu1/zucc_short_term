@@ -37,11 +37,12 @@ public class Frm_AddSelect extends JDialog  implements ActionListener{
 	private final JPanel contentPanel = new JPanel();
 	private Bean_address  curAdd=null;
 	private int curAdd_Index;
-	private JFrame f=null;
+	private Frm_ShopMenu f=null;
 	private List<Bean_production> pro_list =null;
 	
 	
-	public Frm_AddSelect(List<Bean_production> pro_list,double pre_price,double now_price) {
+	public Frm_AddSelect(Frm_ShopMenu f) {
+		this.f=f;
 		// 屏幕居中显示
 		double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
@@ -101,26 +102,20 @@ public class Frm_AddSelect extends JDialog  implements ActionListener{
 	}
 	
 	private JButton cancel_button,ok_button;
-	private JLabel price=null;
 	private double pre_price,now_price;
 	public void actionPerformed(ActionEvent e) {
 		// TODO 自动生成的方法存根
 		if(e.getSource()==this.ok_button) {
 			if(curAdd==null) {
 				JOptionPane.showMessageDialog(null, "请先选中地址", "错误", JOptionPane.INFORMATION_MESSAGE);
+				return;
 			}
-			start.Online_Market_Util.order_Manager.add_order(Bean_user.currentLoginUser,this.curAdd,this.pro_list,
-					this.pre_price,this.now_price);
-			JOptionPane.showMessageDialog(null, "成功下单", "成功", JOptionPane.INFORMATION_MESSAGE);
-			this.pro_list.clear();
+			f.curAddress=curAdd;
 			this.setVisible(false);
 		}
 		else if(e.getSource()==this.cancel_button){
 			this.setVisible(false);
-		}
-		
-		
-		
+		}		
 	}
 	
 	private List<Bean_address> add_list=new ArrayList<Bean_address>();

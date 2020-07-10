@@ -2,20 +2,22 @@ package model;
 //ÓÅ»İÈ¯
 import java.sql.*;
 public class Bean_discount_coupon {
-	private int dis_id,user_id;
+	private String user_id;
+	private int dis_id;
 	private double dis_amout,cut_amout;
 	//dis_amoutÂú×ã½ğ¶î
 	private String dis_content;
+	
 	public int getDis_id() {
 		return dis_id;
 	}
 	public void setDis_id(int dis_id) {
 		this.dis_id = dis_id;
 	}
-	public int getUser_id() {
+	public String getUser_id() {
 		return user_id;
 	}
-	public void setUser_id(int user_id) {
+	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
 	public double getDis_amout() {
@@ -49,4 +51,14 @@ public class Bean_discount_coupon {
 		this.end_date = end_date;
 	}
 	private Timestamp start_date,end_date;
+	public String getCell(int i) {
+		if(i==0) return this.getDis_content();
+		else if(i==1) return String.valueOf(this.getDis_amout());
+		else if(i==2) return String.valueOf(this.getCut_amout());
+		else if(i==3) return this.getStart_date().toString();
+		else if(i==4) return this.getEnd_date().toString();
+		else if(i==5) return "Âú¼õÈ¯";
+		else return "";
+		
+	}
 }

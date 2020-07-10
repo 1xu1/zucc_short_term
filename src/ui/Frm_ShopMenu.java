@@ -16,9 +16,12 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import model.Bean_address;
 import model.Bean_discount_coupon;
+import model.Bean_meet_discount;
 import model.Bean_production;
 import model.Bean_user;
+import util.BusinessException;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -47,7 +50,7 @@ public class Frm_ShopMenu extends JDialog  implements ActionListener{
 				(int) (height - this.getHeight()) / 2);
 		this.validate();
 		setTitle("\u8D2D\u7269\u8F66");
-		setBounds(100, 100, 450, 510);
+		setBounds(100, 100, 450, 543);
 		getContentPane().setLayout(null);
 		contentPanel.setBounds(0, 0, 434, 438);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -63,6 +66,10 @@ public class Frm_ShopMenu extends JDialog  implements ActionListener{
 		
 		delete_pro = new JMenuItem("\u79FB\u9664\u5546\u54C1");
 		delete_pro.addActionListener(this);
+		
+		Add_Select = new JMenuItem("\u9009\u62E9\u6536\u8D27\u5730\u5740");
+		Add_Select.addActionListener(this);
+		menu.add(Add_Select);
 		menu.add(delete_pro);
 		
 		add_coupon = new JMenuItem("\u4F7F\u7528\u4F18\u60E0\u5238");
@@ -100,7 +107,7 @@ public class Frm_ShopMenu extends JDialog  implements ActionListener{
 			
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBounds(0, 438, 434, 33);
+			buttonPane.setBounds(0, 474, 434, 33);
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane);
 			{
@@ -115,19 +122,43 @@ public class Frm_ShopMenu extends JDialog  implements ActionListener{
 				buttonPane.add(cancel_button);
 			}
 		}
+		
+		coupon_label = new JLabel("");
+		coupon_label.setBounds(21, 448, 392, 15);
+		getContentPane().add(coupon_label);
 	}
 	
 	private JButton cancel_button,ok_button;
-	private JLabel price=null;
+	public JLabel price=null;
+	public JLabel coupon_label=null;
+	public Bean_address curAddress=null;
 	private Frm_AddSelect dlgAddS=null;
 	
 	public void actionPerformed(ActionEvent e) {
 		// TODO 自动生成的方法存根
 		if(e.getSource()==this.ok_button) {
-			dlgAddS=new Frm_AddSelect(pro_list,this.pre_price,this.now_price);
-			this.dlgAddS.setVisible(true);
-			//this.pro_list.clear();
+			if(curAddress==null) {
+				JOptionPane.showMessageDialog(null, "请先选中地址", "错误", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			if(this.curCoupon!=null) {
+				start.Online_Market_Util.order_Manager.add_order(Bean_user.currentLoginUser, curAddress, pro_list, pre_price, now_price, this.curCoupon);
+			}
+			else if(this.curMeet!=null) {
+				start.Online_Market_Util.order_Manager.add_order(Bean_user.currentLoginUser, curAddress, pro_list, pre_price, now_price, this.curMeet);
+			}
+			else {
+				start.Online_Market_Util.order_Manager.add_order(Bean_user.currentLoginUser, curAddress, pro_list, pre_price, now_price);
+			}
+			
+			JOptionPane.showMessageDialog(null, "成功下单", "成功", JOptionPane.INFORMATION_MESSAGE);		
+			this.pro_list.clear();
 			this.reload_shop_menu();
+			curAddress=null;
+		}
+		else if(e.getSource()==this.Add_Select) {
+			dlgAddS=new Frm_AddSelect(this);
+			this.dlgAddS.setVisible(true);
 		}
 		else if(e.getSource()==this.cancel_button){
 			this.setVisible(false);
@@ -142,11 +173,14 @@ public class Frm_ShopMenu extends JDialog  implements ActionListener{
 			curPro=null;
 		}
 		else if(e.getSource()==this.add_coupon) {
+			dlgCouSelect=new Frm_CouponSelect(this);
+			this.dlgCouSelect.setVisible(true);
 			
 		}
 	}
-	
-	
+	public String type_cou;
+	private Frm_CouponSelect dlgCouSelect=null;
+
 	DefaultTableModel shop_menu_table_model=new DefaultTableModel();
 	private JTable shop_menu_table=new JTable(shop_menu_table_model);
 	private static final String[] tableTitles = {"名称","商品原价","会员价","规格","购买数量","详情 " };
@@ -165,12 +199,19 @@ public class Frm_ShopMenu extends JDialog  implements ActionListener{
 		shop_menu_table_model.setDataVector(table_pro_data,tableTitles);
 		this.shop_menu_table.validate();
 		this.shop_menu_table.repaint();
-		price.setText(calculate_price());
+		try {
+			price.setText(calculate_price());
+		} catch (BusinessException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 		//this.pri
 	}
 	private double pre_price=0,now_price=0;
-	private Bean_discount_coupon curCoupon=null;
-	public String calculate_price() {
+	public Bean_discount_coupon curCoupon=null;
+	public Bean_meet_discount curMeet=null;
+	private JMenuItem Add_Select;
+	public String calculate_price() throws BusinessException {
 		String result;
 		int t=0;
 		pre_price=now_price=0;
@@ -181,12 +222,32 @@ public class Frm_ShopMenu extends JDialog  implements ActionListener{
 				t=1;
 			}
 		}
+		
 		if(t==0)
 			now_price=pre_price;
+		if(curCoupon!=null) {
+			if(now_price<this.curCoupon.getDis_amout()) {
+				JOptionPane.showMessageDialog(null, "金额不满足", "错误", JOptionPane.ERROR_MESSAGE);
+				return null;
+				//return;
+			}
+			else {	
+				now_price=now_price-this.curCoupon.getCut_amout();
+			}
+		}
+		else if(curMeet!=null) {
+			if(now_price<this.curMeet.getMd_amout()) {
+				JOptionPane.showMessageDialog(null, "金额不满足", "错误", JOptionPane.ERROR_MESSAGE);
+				return null;
+				//return;
+			}
+			else {	
+				now_price=now_price*this.curMeet.getDiscount();
+			}
+		}
 		
 		double cut=pre_price-now_price;
 		result="总价:"+pre_price+"-"+cut+"="+now_price;
 		return result;
 	}
-	
 }

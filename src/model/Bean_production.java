@@ -6,6 +6,13 @@ public class Bean_production {
 	private  String pro_name,pro_specification,pro_more;
 	private float pro_price,vip_price;
 	private int pro_purchase=0;
+	private float now_price;
+	public float getNow_price() {
+		return now_price;
+	}
+	public void setNow_price(float now_price) {
+		this.now_price = now_price;
+	}
 	public int getPro_purchase() {
 		return pro_purchase;
 	}

@@ -137,12 +137,19 @@ public class Frm_Index extends JFrame implements ActionListener{
 		pro_manager.add(edit_pro);
 		pro_manager.add(delete_pro);
 		
-		coupon_manager = new JMenuItem("\u7BA1\u7406\u6D88\u8D39\u5238");
-		coupon_manager.addActionListener(this);
-		menu_1.add(coupon_manager);
-		
 		add_menu = new JMenuItem("\u7F16\u8F91\u83DC\u5355");
 		add_menu.addActionListener(this);
+		
+		JMenu coupon_manager = new JMenu("\u7BA1\u7406\u4F18\u60E0\u5238");
+		menu_1.add(coupon_manager);
+		
+		add_coupon = new JMenuItem("\u53D1\u653E\u4F18\u60E0\u5238");
+		add_coupon.addActionListener(this);
+		coupon_manager.add(add_coupon);
+		
+		delete_coupon = new JMenuItem("\u64A4\u9500\u4F18\u60E0\u5238");
+		delete_coupon.addActionListener(this);
+		coupon_manager.add(delete_coupon);
 		menu_1.add(add_menu);
 		
 		add_menu_list = new JMenuItem("\u7F16\u8F91\u83DC\u5355\u63A8\u8350\u8868");
@@ -250,7 +257,6 @@ public class Frm_Index extends JFrame implements ActionListener{
 	private JMenuItem load_coupon;
 	private JMenuItem shop_menu;
 	private JMenuItem load_order;
-	private JMenuItem coupon_manager;
 	private JMenuItem add_menu;
 	private JMenuItem  add_menu_list;
 	private JMenuItem edit_pro_shop;
@@ -266,6 +272,9 @@ public class Frm_Index extends JFrame implements ActionListener{
 	private Frm_ShopMenu dlgShopMenu=null;
 	private Frm_PurchaseQuantity dlgQ=null;
 	private Frm_Address dlgAdd=null;
+	private Frm_CouponAdd dlgCoupAdd=null;
+	private Frm_CouponDelete dlgCoupDelete=null;
+	private Frm_CouponDisplay dlgCoupDisplay=null;
 	
 	private JButton name_search ;
 	
@@ -286,7 +295,8 @@ public class Frm_Index extends JFrame implements ActionListener{
 		}
 		
 		else if(e.getSource()==this.load_coupon) {
-			System.out.print(1);
+			dlgCoupDisplay=new Frm_CouponDisplay();
+			dlgCoupDisplay.setVisible(true);
 		}
 		else if(e.getSource()==this.load_order) {
 			System.out.print(1);
@@ -295,8 +305,13 @@ public class Frm_Index extends JFrame implements ActionListener{
 			this.dlgShopMenu=new Frm_ShopMenu(this.pro_list);
 			this.dlgShopMenu.setVisible(true);
 		}
-		else if(e.getSource()==this.coupon_manager) {
-			System.out.print(1);
+		else if(e.getSource()==this.add_coupon) {
+			dlgCoupAdd=new Frm_CouponAdd();
+			this.dlgCoupAdd.setVisible(true);
+		}
+		else if(e.getSource()==this.delete_coupon) {
+			this.dlgCoupDelete=new Frm_CouponDelete();
+			this.dlgCoupDelete.setVisible(true);
 		}
 		else if(e.getSource()==this.add_menu) {
 			System.out.print(1);
@@ -433,6 +448,8 @@ public class Frm_Index extends JFrame implements ActionListener{
 	private JMenu menu_2;
 	private JMenuItem menuItem;
 	private JMenuItem edit_address;
+	private JMenuItem add_coupon,delete_coupon;
+	
 	
 	public void reload_pro(int planIdx){
 		if(planIdx<0) return;

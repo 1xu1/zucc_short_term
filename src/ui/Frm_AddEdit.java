@@ -156,6 +156,7 @@ public class Frm_AddEdit extends JDialog  implements ActionListener {
 			catch (Exception p){
 				JOptionPane.showMessageDialog(null, "错误", "请检查输入格式", JOptionPane.ERROR_MESSAGE); 
 				p.printStackTrace();
+				return;
 			}
 			
 			start.Online_Market_Util.address_Manager.edit_address(b);

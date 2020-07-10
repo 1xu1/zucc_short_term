@@ -100,6 +100,7 @@ public class Frm_ChangePwd  extends JDialog implements ActionListener {
 			} catch (BaseException e1) {
 				// TODO 自动生成的 catch 块
 				e1.printStackTrace();
+				
 			}
 				this.setVisible(false);
 			} 
