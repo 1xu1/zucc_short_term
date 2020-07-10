@@ -65,7 +65,7 @@ public class Frm_UserData_Display extends JDialog {
 		if(b.getName()!=null) {
 			user_name.setText(b.getName());
 		}
-		
+	
 		if(b.getCity()!=null) {
 			user_city.setText(b.getCity());
 		}

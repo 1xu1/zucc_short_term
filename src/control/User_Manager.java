@@ -81,10 +81,10 @@ public class User_Manager {
 					
 				}						
 			}	
+			s.close_all();
 			if(valid==0)
 				JOptionPane.showMessageDialog(null, "该用户已经被注销", "登录错误", JOptionPane.ERROR_MESSAGE);
-			s.close_all();
-			if(t==0)
+			else if(t==0)
 				JOptionPane.showMessageDialog(null, "请核对用户名正确与否", "登录错误", JOptionPane.ERROR_MESSAGE);
 			else
 				JOptionPane.showMessageDialog(null, "请核对密码正确与否", "登录错误", JOptionPane.ERROR_MESSAGE);
@@ -109,14 +109,13 @@ public class User_Manager {
 		Sql_c s = new Sql_c();
 		String sql;
 		Bean_user b=new Bean_user();
-		
 		try {
 			sql="select user_pwd from user where user_id=?";
 			s.getPt(sql);
 			s.pt.setString(1, user.getUser_id());
 			s.rs=s.pt.executeQuery();
 			if(s.rs.next()) {
-				if(!s.rs.getString(1).equals(newPwd))
+				if(!s.rs.getString(1).equals(oldPwd))
 					throw new BusinessException("密码错误");
 			}
 				
@@ -157,21 +156,53 @@ public class User_Manager {
 		JOptionPane.showMessageDialog(null, "个人信息成功修改", "成功", JOptionPane.INFORMATION_MESSAGE);
 	}
 	public void edit_user(Bean_user b) {
-		Sql_c s=new Sql_c();
-		String sql="update user set name=?, user_pwd=?, vip_end_date=? where user_id = ?";
-		s.getPt(sql);
+		Sql_c s=new Sql_c();		
+		String sql="select 1 from user where user_id = ?";
+		s.getPt(sql);		
 		try {
+			s.pt.setString(1, b.getUser_id());
+			s.rs=s.pt.executeQuery();
+			if(s.rs.next()==false) {
+				throw new BusinessException("未找到指定用户");
+			}	
+			s.close();
+			sql="update user set name=?, user_pwd=?, vip_end_date=? where user_id = ?";
+			s.getPt(sql);
 			s.pt.setString(1, b.getName());
 			s.pt.setString(2, b.getUser_pwd());
 			s.pt.setTimestamp(3, b.getVip_end_date());
 			s.pt.setString(4, b.getUser_id());
 			s.pt.execute();
 			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-		JOptionPane.showMessageDialog(null, "个人信息成功修改", "成功", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "指定用户信息成功修改", "成功", JOptionPane.INFORMATION_MESSAGE);
+	}
+	public void delete_user(String b) {
+		Sql_c s=new Sql_c();
+		
+		String sql="select 1 from user where user_id = ?";
+		s.getPt(sql);
+				
+		try {
+			s.pt.setString(1, b);
+			s.rs=s.pt.executeQuery();
+			if(s.rs.next()==false) {
+				JOptionPane.showMessageDialog(null, "未找到对应用户", "错误", JOptionPane.INFORMATION_MESSAGE);
+				throw new BusinessException("未找到对应用户");
+			}	
+			s.close();
+			sql="update user set valid=0 where user_id = ?";
+			s.getPt(sql);
+			s.pt.setString(1, b);
+			s.pt.execute();
+			
+		} catch (SQLException | BusinessException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 	}
 	public Bean_user load_user_data() {
 		Bean_user b=new Bean_user();

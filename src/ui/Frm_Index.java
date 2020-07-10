@@ -116,9 +116,11 @@ public class Frm_Index extends JFrame implements ActionListener{
 		
 		user_edit = new JMenuItem("\u7F16\u8F91\u7528\u6237\u4FE1\u606F");
 		user_manger.add(user_edit);
+		user_edit.addActionListener(this);
 		
-		user_delete = new JMenuItem("\u5220\u9664\u7528\u6237");
+		user_delete = new JMenuItem("\u6CE8\u9500\u7528\u6237");
 		user_manger.add(user_delete);
+		user_delete.addActionListener(this);
 		menu_1.add(pro_manager);
 		
 		add_type = new JMenuItem("\u589E\u6DFB\u79CD\u7C7B");
@@ -286,6 +288,8 @@ public class Frm_Index extends JFrame implements ActionListener{
 	private Frm_CouponAdd dlgCoupAdd=null;
 	private Frm_CouponDelete dlgCoupDelete=null;
 	private Frm_CouponDisplay dlgCoupDisplay=null;
+	private Frm_UserDelete dlgUserDelete=null;
+	private Frm_UserEdit dlgUserEdit=null;
 	
 	private JButton name_search ;
 	
@@ -409,10 +413,12 @@ public class Frm_Index extends JFrame implements ActionListener{
 			dlgAdd.setVisible(true);
 		}
 		else if(e.getSource()==this.user_edit) {
-			
+			this.dlgUserEdit=new Frm_UserEdit();
+			this.dlgUserEdit.setVisible(true);			
 		}
 		else if(e.getSource()==this.user_delete) {
-			
+			this.dlgUserDelete=new Frm_UserDelete();
+			this.dlgUserDelete.setVisible(true);
 		}
 	}
 
