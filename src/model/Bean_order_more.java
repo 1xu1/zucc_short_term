@@ -4,7 +4,13 @@ import java.sql.Timestamp;
 
 public class Bean_order_more {
 	private String pro_name,order_state,coupon_type,coupon_content;
-	private int purchase_amout;
+	private int purchase_amout,order_id;
+	public int getOrder_id() {
+		return order_id;
+	}
+	public void setOrder_id(int Order_id) {
+		this.order_id = Order_id;
+	}
 	private float now_price,pre_price;
 	private Timestamp arrived_time;
 	public Timestamp getArrived_time() {

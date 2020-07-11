@@ -39,7 +39,7 @@ public class Frm_AddSelect extends JDialog  implements ActionListener{
 	private int curAdd_Index;
 	private Frm_ShopMenu f=null;
 	private List<Bean_production> pro_list =null;
-	
+
 	
 	public Frm_AddSelect(Frm_ShopMenu f) {
 		this.f=f;

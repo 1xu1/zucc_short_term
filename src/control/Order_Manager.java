@@ -20,7 +20,7 @@ public class Order_Manager {
 		String sql="select order_id,address_id,user_id,pre_price,price,order_state,arrived_time from u_orser "
 				+ " where user_id=?";
 		s.getPt(sql);
-		
+	
 		try {
 			s.pt.setString(1, user.getUser_id());
 			s.rs=s.pt.executeQuery();
@@ -48,7 +48,7 @@ public class Order_Manager {
 		Sql_c s=new Sql_c();
 		String sql;
 		try {			
-			sql="select pro_name,pro_quatity,pre_price,price,arrived_time,order_state "
+			sql="select pro_name,pro_quatity,pre_price,price,arrived_time,order_state,order_id "
 						+ "from order_more "
 						+ "where user_id=?";
 			s.getPt(sql);
@@ -62,6 +62,7 @@ public class Order_Manager {
 				a.setNow_price(s.rs.getFloat(4));
 				a.setArrived_time(s.rs.getTimestamp(5));
 				a.setOrder_state(s.rs.getString(6));
+				a.setOrder_id(s.rs.getInt(7));
 				result.add(a);
 			}
 			
@@ -201,5 +202,23 @@ public class Order_Manager {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
+	}
+	public void edit_order(int order_id,String state) {
+		
+		Sql_c s=new Sql_c();
+		String sql;
+		try {			
+			sql="update u_order set order_state=? "
+					+ "where order_id=?";
+			s.getPt(sql);
+			s.pt.setString(1, state);
+			s.pt.setInt(2, order_id);
+			s.pt.execute();
+			s.close_all();
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return ;
 	}
 }
