@@ -48,7 +48,7 @@ public class Order_Manager {
 		Sql_c s=new Sql_c();
 		String sql;
 		try {			
-			sql="select pro_name,pro_quatity,pre_price,price,arrived_time,order_state,order_id "
+			sql="select pro_name,pro_quatity,pre_price,price,arrived_time,order_state,order_id,pro_id "
 						+ "from order_more "
 						+ "where user_id=?";
 			s.getPt(sql);
@@ -63,6 +63,7 @@ public class Order_Manager {
 				a.setArrived_time(s.rs.getTimestamp(5));
 				a.setOrder_state(s.rs.getString(6));
 				a.setOrder_id(s.rs.getInt(7));
+				a.setPro_id(s.rs.getInt(8));
 				result.add(a);
 			}
 			

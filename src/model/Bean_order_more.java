@@ -3,8 +3,20 @@ package model;
 import java.sql.Timestamp;
 
 public class Bean_order_more {
-	private String pro_name,order_state,coupon_type,coupon_content;
-	private int purchase_amout,order_id;
+	private String pro_name,order_state,coupon_type,coupon_content,user_id;
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+	private int purchase_amout,order_id,pro_id;
+	public int getPro_id() {
+		return pro_id;
+	}
+	public void setPro_id(int pro_id) {
+		this.pro_id = pro_id;
+	}
 	public int getOrder_id() {
 		return order_id;
 	}

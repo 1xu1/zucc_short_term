@@ -192,9 +192,10 @@ public class Frm_OrderDisplay extends JDialog  implements ActionListener{
 				JOptionPane.showMessageDialog(null, "请先选中订单", "错误", JOptionPane.INFORMATION_MESSAGE);
 				return;
 			}
-			
+			dlgCom=new Frm_coment(this.curOrder);
+			this.dlgCom.setVisible(true);
 			curOrder=null;
 		}
 	}
-	
+	private Frm_coment dlgCom=null;
 }
