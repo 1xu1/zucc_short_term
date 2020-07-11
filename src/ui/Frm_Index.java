@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import model.Bean_production;
+import model.Bean_promotion;
 import model.Bean_type;
 import model.Bean_user;
 import util.BusinessException;
@@ -55,7 +56,7 @@ public class Frm_Index extends JFrame implements ActionListener{
 		setTitle("\u751F\u9C9C\u5E02\u573A\u9996\u9875");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 829, 583);
+		setBounds(100, 100, 952, 583);
 		// 屏幕居中显示
 		double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
@@ -94,8 +95,6 @@ public class Frm_Index extends JFrame implements ActionListener{
 		shop_menu = new JMenuItem("\u67E5\u770B\u8D2D\u7269\u8F66");
 		menu.add(shop_menu);
 		shop_menu.addActionListener(this);
-		load_order = new JMenuItem("\u67E5\u770B\u8BA2\u5355");
-		menu.add(load_order);
 		
 		add_vip = new JMenuItem("\u6210\u4E3AVIP");
 		add_vip.addActionListener(this);
@@ -150,6 +149,14 @@ public class Frm_Index extends JFrame implements ActionListener{
 		pro_manager.add(edit_pro);
 		pro_manager.add(delete_pro);
 		
+		add_pr = new JMenuItem("\u589E\u6DFB\u4FC3\u9500");
+		pro_manager.add(add_pr);
+		add_pr.addActionListener(this);
+		
+		delete_pr = new JMenuItem("\u79FB\u9664\u4FC3\u9500");
+		pro_manager.add(delete_pr);
+		delete_pr.addActionListener(this);
+		
 		add_menu = new JMenuItem("\u7F16\u8F91\u83DC\u5355");
 		add_menu.addActionListener(this);
 		
@@ -172,7 +179,6 @@ public class Frm_Index extends JFrame implements ActionListener{
 		edit_pro_shop = new JMenuItem("\u7F16\u8F91\u5546\u54C1\u91C7\u8D2D\u5355");
 		edit_pro_shop.addActionListener(this);
 		menu_1.add(edit_pro_shop);
-		load_order.addActionListener(this);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -216,13 +222,18 @@ public class Frm_Index extends JFrame implements ActionListener{
 		
 		
 		JScrollPane scrollPane_pro = new JScrollPane(table_pro);
-		scrollPane_pro.setBounds(338, 79, 318, 409);
+		scrollPane_pro.setBounds(338, 79, 398, 409);
 		contentPane.add(scrollPane_pro);
 		
 		button_purchase = new JButton("\u52A0\u5165\u8D2D\u7269\u8F66");
-		button_purchase.setBounds(666, 79, 106, 61);
+		button_purchase.setBounds(760, 79, 106, 61);
 		button_purchase.addActionListener(this);
 		contentPane.add(button_purchase);
+		
+		promotion_b = new JButton("\u9650\u65F6\u4FC3\u9500\uFF01\uFF01\uFF01");
+		promotion_b.setBounds(760, 166, 117, 70);
+		promotion_b.addActionListener(this);
+		contentPane.add(promotion_b);
 		
 		if(Bean_user.currentLoginUser.getManager()==0) {
 				this.menu_1.setVisible(false);
@@ -270,13 +281,13 @@ public class Frm_Index extends JFrame implements ActionListener{
 	private JMenuItem load_user_data;
 	private JMenuItem load_coupon;
 	private JMenuItem shop_menu;
-	private JMenuItem load_order;
 	private JMenuItem add_menu;
 	private JMenuItem  add_menu_list;
 	private JMenuItem edit_pro_shop;
 	private JMenu menu_1;
 	private JMenuItem user_edit=null;
 	private JMenuItem user_delete=null;
+	private JMenuItem add_pr=null,delete_pr=null;
 	
 	private Frm_ChangePwd dlgChangePwd =null;
 	private Frm_UserData dlgUserData=null;
@@ -295,8 +306,10 @@ public class Frm_Index extends JFrame implements ActionListener{
 	private Frm_UserEdit dlgUserEdit=null;
 	private Frm_OrderDisplay dlgOrderDisplay=null;
 	private Frm_CommentDisplay dlgCommentDisplay=null;
+	private Frm_PrAdd dlgPrAdd=null;
 	
-	private JButton name_search ;
+	private JButton name_search,promotion_b ;
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent e){
@@ -318,8 +331,20 @@ public class Frm_Index extends JFrame implements ActionListener{
 			dlgCoupDisplay=new Frm_CouponDisplay();
 			dlgCoupDisplay.setVisible(true);
 		}
-		else if(e.getSource()==this.load_order) {
-			System.out.print(1);
+		else if(e.getSource()==this.add_pr) {
+			if(curPro==null) {
+				JOptionPane.showMessageDialog(null, "请先选中商品", "错误", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			this.dlgPrAdd=new Frm_PrAdd(curPro);
+			dlgPrAdd.setVisible(true);
+		}
+		else if(e.getSource()==this.delete_pr) {
+			if(curType==null) {
+				JOptionPane.showMessageDialog(null, "请先选中商品", "错误", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
 		}
 		else if(e.getSource()==this.shop_menu) {
 			this.dlgShopMenu=new Frm_ShopMenu(this.pro_list);
@@ -437,6 +462,9 @@ public class Frm_Index extends JFrame implements ActionListener{
 			this.dlgCommentDisplay=new Frm_CommentDisplay(curPro);
 			this.dlgCommentDisplay.setVisible(true);
 		}
+		else if(e.getSource()==promotion_b) {
+			this.reload_pr();
+		}
 	}
 
 	private List<Bean_production> pro_list = new ArrayList<Bean_production>();
@@ -525,6 +553,31 @@ public class Frm_Index extends JFrame implements ActionListener{
 		}
 		
 		pro_model.setDataVector(table_pro_data,pro_tile);
+		this.table_pro.validate();
+		this.table_pro.repaint();	
+	}
+	String tabel_pr[]= {"名称","商品原价","促销价","规格","剩余数量","详情","开始日期 ","结束日期" };
+	public void reload_pr(){
+		try {
+			allPro=start.Online_Market_Util.production_Manager.load_pr();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
+		table_pro_data =new Object[allPro.size()][tabel_pr.length];
+		int t=0;
+		for(int i=0;i<allPro.size();i++){
+			for(int j=0;j<tabel_pr.length;j++) {
+				if(j>=6)
+					t=j+1;
+				else
+					t=j;
+				table_pro_data[i][j]=allPro.get(i).getCell(t);
+			}
+				
+		}
+		
+		pro_model.setDataVector(table_pro_data,tabel_pr);
 		this.table_pro.validate();
 		this.table_pro.repaint();	
 	}

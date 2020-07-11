@@ -2,10 +2,36 @@ package model;
 import java.sql.*;
 public class Bean_promotion {
 	private int pr_id,pro_id,pr_quatity;
-	private float pr_price;
+	private float pr_price,pro_price;
 	private Timestamp start_date,end_date;
+	private String pro_name,pro_sp,pro_more;
+	public String getPro_more() {
+		return pro_more;
+	}
+	public void setPro_more(String pro_more) {
+		this.pro_more = pro_more;
+	}
+	public static final String[] tableTitles = {"名称","商品原价","促销价","规格","剩余数量","详情","开始日期 ","结束日期" };
 	public int getPr_id() {
 		return pr_id;
+	}
+	public float getPro_price() {
+		return pro_price;
+	}
+	public void setPro_price(float pro_price) {
+		this.pro_price = pro_price;
+	}
+	public String getPro_name() {
+		return pro_name;
+	}
+	public void setPro_name(String pro_name) {
+		this.pro_name = pro_name;
+	}
+	public String getPro_sp() {
+		return pro_sp;
+	}
+	public void setPro_sp(String pro_sp) {
+		this.pro_sp = pro_sp;
 	}
 	public void setPr_id(int pr_id) {
 		this.pr_id = pr_id;

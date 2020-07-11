@@ -183,7 +183,7 @@ public class Frm_ShopMenu extends JDialog  implements ActionListener{
 
 	DefaultTableModel shop_menu_table_model=new DefaultTableModel();
 	private JTable shop_menu_table=new JTable(shop_menu_table_model);
-	private static final String[] tableTitles = {"名称","商品原价","会员价","规格","购买数量","详情 " };
+	private static final String[] tableTitles = {"名称","商品原价","优惠价","规格","购买数量","详情 " };
 	public void reload_shop_menu(){
 		
 		Object[][] table_pro_data = new Object[this.pro_list.size()][tableTitles.length];

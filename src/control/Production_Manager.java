@@ -41,7 +41,7 @@ public class Production_Manager {
 	public List<Bean_production> load_pro(Bean_type type){
 		List<Bean_production> b = new ArrayList<Bean_production>();
 		Sql_c s=new Sql_c();
-		String sql="select pro_name,pro_price,pro_vip_price,pro_specification,pro_stock,pro_more,pro_id,promotion from production where type_id=? "
+		String sql="select pro_name,pro_price,pro_vip_price,pro_specification,pro_stock,pro_more,pro_id from production where type_id=? "
 				+ "and valid!=0";
 		try {
 			s.getPt(sql);
@@ -56,7 +56,7 @@ public class Production_Manager {
 				bb.setPro_stock(s.rs.getInt(5));
 				bb.setPro_more(s.rs.getString(6));
 				bb.setPro_id(s.rs.getInt(7));
-				bb.setPromotion(s.rs.getInt(8));
+				
 				b.add(bb);
 				
 			}
@@ -188,8 +188,8 @@ public class Production_Manager {
 	public void add_pro(Bean_production b) {
 		
 		Sql_c s=new Sql_c();
-		String sql="insert into production(type_id,pro_name,pro_stock,pro_price,pro_vip_price,pro_specification,pro_more,promotion)"
-				+ " values(?,?,?,?,?,?,?,?)";
+		String sql="insert into production(type_id,pro_name,pro_stock,pro_price,pro_vip_price,pro_specification,pro_more)"
+				+ " values(?,?,?,?,?,?,?)";
 		try {
 			s.getPt(sql);
 			s.pt.setInt(1, b.getType_id());
@@ -199,7 +199,7 @@ public class Production_Manager {
 			s.pt.setFloat(5, b.getVip_price());
 			s.pt.setString(6, b.getPro_specification());
 			s.pt.setString(7, b.getPro_more());
-			s.pt.setInt(8, b.getPromotion());
+			
 			s.pt.execute();
 			s.close();
 			sql="update type set count=count+1 where type_id=?";
@@ -217,7 +217,7 @@ public class Production_Manager {
 			
 			Sql_c s=new Sql_c();
 			String sql="update production set  "
-					+ "pro_name=?,pro_stock=?,pro_price=?,pro_vip_price=?,pro_specification=?,pro_more=?,promotion=? "
+					+ "pro_name=?,pro_stock=?,pro_price=?,pro_vip_price=?,pro_specification=?,pro_more=? "
 					+ "where pro_id=?";
 			try {
 				s.getPt(sql);
@@ -228,8 +228,7 @@ public class Production_Manager {
 				s.pt.setFloat(4, b.getVip_price());
 				s.pt.setString(5, b.getPro_specification());
 				s.pt.setString(6, b.getPro_more());
-				s.pt.setInt(7, b.getPromotion());
-				s.pt.setInt(8, b.getPro_id());
+				s.pt.setInt(7, b.getPro_id());
 				s.pt.execute();
 				s.close_all();				
 				}
@@ -260,6 +259,70 @@ public class Production_Manager {
 				}
 				return;
 			}
+		public List<Bean_production> load_pr() {
+			List<Bean_production> result = new ArrayList<Bean_production>();
+			Sql_c s=new Sql_c();
+			String sql="select pro_name,pro_price,pro_specification,pr_quatity,start_date,end_date,pr_id,pro_more,pr_price from pro_promotion ";
+			try {
+				s.getRs(sql);
+				while(s.rs.next()) {
+					Bean_production b=new Bean_production();
+					b.setPro_name(s.rs.getString(1));
+					b.setPro_price(s.rs.getFloat(2));
+					b.setPro_specification(s.rs.getString(3));
+					b.setPro_stock(s.rs.getInt(4));
+					b.setStart_date(s.rs.getTimestamp(5));
+					b.setEnd_date(s.rs.getTimestamp(6));
+					b.setPr_id(s.rs.getInt(7));
+					b.setPro_more(s.rs.getString(8));
+					b.setVip_price(s.rs.getFloat(9));
+					result.add(b);
+				}
+				s.close_all();				
+				}
+				catch (SQLException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+			return result;
+		}
+		public void add_pr(Bean_production b,Bean_promotion pr) {
+			
+			Sql_c s=new Sql_c();
+			String sql="insert into promotion(pro_id,pr_price,pr_quatity,start_date,end_date)"
+					+ " values(?,?,?,?,?)";
+			try {
+				s.getPt(sql);
+				s.pt.setInt(1, b.getPro_id());
+				s.pt.setFloat(2, pr.getPr_price());
+				s.pt.setInt(3, pr.getPr_quatity());
+				s.pt.setTimestamp(4, pr.getStart_date());
+				s.pt.setTimestamp(5, pr.getEnd_date());
+				s.pt.execute();
+				s.close_all();				
+				}
+				catch (SQLException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+		}
+		public void delete_pr(Bean_promotion pr) {
+			
+			Sql_c s=new Sql_c();
+			String sql="delete promotion "
+					+ " where pr_id=?";
+			try {
+				s.getPt(sql);
+				s.pt.setInt(1, pr.getPr_id());
+				
+				s.pt.execute();
+				s.close_all();				
+				}
+				catch (SQLException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+		}
 		 
 			
 }

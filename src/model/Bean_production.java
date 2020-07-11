@@ -1,8 +1,29 @@
 package model;
+
+import java.sql.Timestamp;
+
 //pro_specification¹æ¸ñ
 public class Bean_production {
-	private int pro_id,type_id,promotion,pro_stock;
-	
+	private int pro_id,type_id,promotion,pro_stock,pr_id;
+	private Timestamp start_date,end_date;
+	public Timestamp getStart_date() {
+		return start_date;
+	}
+	public void setStart_date(Timestamp start_date) {
+		this.start_date = start_date;
+	}
+	public Timestamp getEnd_date() {
+		return end_date;
+	}
+	public void setEnd_date(Timestamp end_date) {
+		this.end_date = end_date;
+	}
+	public int getPr_id() {
+		return pr_id;
+	}
+	public void setPr_id(int pr_id) {
+		this.pr_id = pr_id;
+	}
 	private  String pro_name,pro_specification,pro_more;
 	private float pro_price,vip_price;
 	private int pro_purchase=0;
@@ -82,6 +103,8 @@ public class Bean_production {
 		else if(col==4)	return String.valueOf(this.pro_stock);
 		else if(col==5) return this.pro_more;
 		else if(col==6) return String.valueOf(this.pro_purchase);
+		else if(col==7) return this.start_date.toString();
+		else if(col==8) return this.end_date.toString();
 		else return "";
 	}
 }
