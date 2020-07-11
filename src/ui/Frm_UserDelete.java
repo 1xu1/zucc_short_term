@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -29,6 +30,10 @@ public class Frm_UserDelete extends JDialog  implements ActionListener{
 	public Frm_UserDelete() {
 		setTitle("\u6CE8\u9500\u6307\u5B9A\u7528\u6237");
 		//super(f,s,c);
+		double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+		this.setLocation((int) (width - this.getWidth()) / 2,
+				(int) (height - this.getHeight()) / 2);
 		
 		setBounds(100, 100, 293, 125);
 		getContentPane().setLayout(new BorderLayout());

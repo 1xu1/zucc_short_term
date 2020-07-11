@@ -13,12 +13,17 @@ import ui.*;
 import util.*;
 
 public class Order_Manager {
-	public List<Bean_u_order> load_order() {
+	//加载特定用户的订单信息
+	public List<Bean_u_order> load_order(Bean_user user) {
 		List<Bean_u_order> b = new ArrayList<Bean_u_order>();
 		Sql_c s=new Sql_c();
-		String sql="select order_id,address_id,user_id,pre_price,price,order_state,arrived_time from u_orser";
-		s.getRs(sql);
+		String sql="select order_id,address_id,user_id,pre_price,price,order_state,arrived_time from u_orser "
+				+ " where user_id=?";
+		s.getPt(sql);
+		
 		try {
+			s.pt.setString(1, user.getUser_id());
+			s.rs=s.pt.executeQuery();
 			while(s.rs.next()) {
 				Bean_u_order bb=new Bean_u_order();
 				bb.setOrder_id(s.rs.getInt(1));
@@ -37,6 +42,37 @@ public class Order_Manager {
 		}
 		return b;
 	}
+	//通过订单信息加载出订单详情
+	public List<Bean_order_more> load_order_more(Bean_user user) {
+		List<Bean_order_more> result = new ArrayList<Bean_order_more>();
+		Sql_c s=new Sql_c();
+		String sql;
+		try {			
+			sql="select pro_name,pro_quatity,pre_price,price,arrived_time,order_state "
+						+ "from order_more "
+						+ "where user_id=?";
+			s.getPt(sql);
+			s.pt.setString(1, user.getUser_id());
+			s.rs=s.pt.executeQuery();
+			while(s.rs.next()) {
+				Bean_order_more a=new Bean_order_more();
+				a.setPro_name(s.rs.getString(1));
+				a.setPurchase_amout(s.rs.getInt(2));
+				a.setPre_price(s.rs.getFloat(3));
+				a.setNow_price(s.rs.getFloat(4));
+				a.setArrived_time(s.rs.getTimestamp(5));
+				a.setOrder_state(s.rs.getString(6));
+				result.add(a);
+			}
+			
+			s.close_all();
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	//没有使用任何优惠券
 	public void add_order(Bean_user user,Bean_address add,List<Bean_production> pro_list,double pre_price,double now_price){
 		Sql_c s=new Sql_c();

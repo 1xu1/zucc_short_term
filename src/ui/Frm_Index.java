@@ -86,6 +86,8 @@ public class Frm_Index extends JFrame implements ActionListener{
 		
 		shop_record = new JMenuItem("\u67E5\u770B\u4E2A\u4EBA\u6D88\u8D39\u8BB0\u5F55");
 		menu.add(shop_record);
+		shop_record.addActionListener(this);
+		
 		load_coupon = new JMenuItem("\u67E5\u770B\u4E2A\u4EBA\u4F18\u60E0");
 		menu.add(load_coupon);
 		load_coupon.addActionListener(this);
@@ -290,6 +292,7 @@ public class Frm_Index extends JFrame implements ActionListener{
 	private Frm_CouponDisplay dlgCoupDisplay=null;
 	private Frm_UserDelete dlgUserDelete=null;
 	private Frm_UserEdit dlgUserEdit=null;
+	private Frm_OrderDisplay dlgOrderDisplay=null;
 	
 	private JButton name_search ;
 	
@@ -419,6 +422,10 @@ public class Frm_Index extends JFrame implements ActionListener{
 		else if(e.getSource()==this.user_delete) {
 			this.dlgUserDelete=new Frm_UserDelete();
 			this.dlgUserDelete.setVisible(true);
+		}
+		else if(e.getSource()==this.shop_record) {
+			dlgOrderDisplay=new Frm_OrderDisplay();
+			this.dlgOrderDisplay.setVisible(true);
 		}
 	}
 
