@@ -20,7 +20,7 @@ public class Order_Manager {
 		String sql="select order_id,address_id,user_id,pre_price,price,order_state,arrived_time from u_orser "
 				+ " where user_id=?";
 		s.getPt(sql);
-	
+	 
 		try {
 			s.pt.setString(1, user.getUser_id());
 			s.rs=s.pt.executeQuery();
@@ -97,15 +97,27 @@ public class Order_Manager {
 				s.pt.setInt(9,pro_list.get(i).getPro_id() );
 				s.pt.setInt(10, pro_list.get(i).getPro_purchase());
 				s.pt.execute();
+				
 			}
 			s.close();
-			//减少该产品存货数量
-			sql="update production set pro_stock=pro_stock-? where pro_id=?";
-			s.getPt(sql);
+			//减少该产品存货数量						
 			for(int i=0;i<pro_list.size();i++) {
-				s.pt.setInt(1, pro_list.get(i).getPro_purchase());
-				s.pt.setInt(2, pro_list.get(i).getPro_id());
-				s.pt.execute();
+				if(pro_list.get(i).getPromotion()==0) {
+					sql="update production set pro_stock=pro_stock-? where pro_id=?";
+					s.getPt(sql);
+					s.pt.setInt(1, pro_list.get(i).getPro_purchase());
+					s.pt.setInt(2, pro_list.get(i).getPro_id());
+					s.pt.execute();
+					s.close();
+				}
+				else {
+					sql="update promotion set pr_quatity=pr_quatity-? where pr_id=?";
+					s.getPt(sql);
+					s.pt.setInt(1, pro_list.get(i).getPro_purchase());
+					s.pt.setInt(2, pro_list.get(i).getPr_id());
+					s.pt.execute();
+					s.close();
+				}
 			}
 			s.close_all();
 			}
@@ -139,12 +151,23 @@ public class Order_Manager {
 			}
 			s.close();
 			//减少该产品存货数量
-			sql="update production set pro_stock=pro_stock-? where pro_id=?";
-			s.getPt(sql);
 			for(int i=0;i<pro_list.size();i++) {
-				s.pt.setInt(1, pro_list.get(i).getPro_purchase());
-				s.pt.setInt(2, pro_list.get(i).getPro_id());
-				s.pt.execute();
+				if(pro_list.get(i).getPromotion()==0) {
+					sql="update production set pro_stock=pro_stock-? where pro_id=?";
+					s.getPt(sql);
+					s.pt.setInt(1, pro_list.get(i).getPro_purchase());
+					s.pt.setInt(2, pro_list.get(i).getPro_id());
+					s.pt.execute();
+					s.close();
+				}
+				else {
+					sql="update promotion set pr_quatity=pr_quatity-? where pr_id=?";
+					s.getPt(sql);
+					s.pt.setInt(1, pro_list.get(i).getPro_purchase());
+					s.pt.setInt(2, pro_list.get(i).getPr_id());
+					s.pt.execute();
+					s.close();
+				}
 			}
 			s.close();
 			//使用过的优惠券失效
@@ -184,12 +207,23 @@ public class Order_Manager {
 			}
 			s.close();
 			//减少该产品存货数量
-			sql="update production set pro_stock=pro_stock-? where pro_id=?";
-			s.getPt(sql);
 			for(int i=0;i<pro_list.size();i++) {
-				s.pt.setInt(1, pro_list.get(i).getPro_purchase());
-				s.pt.setInt(2, pro_list.get(i).getPro_id());
-				s.pt.execute();
+				if(pro_list.get(i).getPromotion()==0) {
+					sql="update production set pro_stock=pro_stock-? where pro_id=?";
+					s.getPt(sql);
+					s.pt.setInt(1, pro_list.get(i).getPro_purchase());
+					s.pt.setInt(2, pro_list.get(i).getPro_id());
+					s.pt.execute();
+					s.close();
+				}
+				else {
+					sql="update promotion set pr_quatity=pr_quatity-? where pr_id=?";
+					s.getPt(sql);
+					s.pt.setInt(1, pro_list.get(i).getPro_purchase());
+					s.pt.setInt(2, pro_list.get(i).getPr_id());
+					s.pt.execute();
+					s.close();
+				}
 			}
 			s.close();
 			//使用过的优惠券失效

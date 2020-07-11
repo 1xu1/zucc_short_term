@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 //pro_specification¹æ¸ñ
 public class Bean_production {
-	private int pro_id,type_id,promotion,pro_stock,pr_id;
+	private int pro_id,type_id,promotion=0,pro_stock,pr_id;
 	private Timestamp start_date,end_date;
 	public Timestamp getStart_date() {
 		return start_date;

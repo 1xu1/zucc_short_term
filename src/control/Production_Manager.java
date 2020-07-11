@@ -276,6 +276,7 @@ public class Production_Manager {
 					b.setPr_id(s.rs.getInt(7));
 					b.setPro_more(s.rs.getString(8));
 					b.setVip_price(s.rs.getFloat(9));
+					b.setPromotion(1);
 					result.add(b);
 				}
 				s.close_all();				
