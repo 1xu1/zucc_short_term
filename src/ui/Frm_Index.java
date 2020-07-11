@@ -104,8 +104,9 @@ public class Frm_Index extends JFrame implements ActionListener{
 		menu_2 = new JMenu("\u5546\u54C1\u64CD\u4F5C\u9009\u9879");
 		menuBar.add(menu_2);
 		
-		menuItem = new JMenuItem("\u67E5\u770B\u5546\u54C1\u8BC4\u4EF7");
-		menu_2.add(menuItem);
+		load_comment = new JMenuItem("\u67E5\u770B\u5546\u54C1\u8BC4\u4EF7");
+		load_comment.addActionListener(this);
+		menu_2.add(load_comment);
 		
 		menu_1 = new JMenu("\u7BA1\u7406\u5458\u9009\u9879");
 		menuBar.add(menu_1);
@@ -293,6 +294,7 @@ public class Frm_Index extends JFrame implements ActionListener{
 	private Frm_UserDelete dlgUserDelete=null;
 	private Frm_UserEdit dlgUserEdit=null;
 	private Frm_OrderDisplay dlgOrderDisplay=null;
+	private Frm_CommentDisplay dlgCommentDisplay=null;
 	
 	private JButton name_search ;
 	
@@ -427,6 +429,14 @@ public class Frm_Index extends JFrame implements ActionListener{
 			dlgOrderDisplay=new Frm_OrderDisplay();
 			this.dlgOrderDisplay.setVisible(true);
 		}
+		else if(e.getSource()==this.load_comment) {
+			if(curPro==null) {
+				JOptionPane.showMessageDialog(null, "请先选中商品", "错误", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			this.dlgCommentDisplay=new Frm_CommentDisplay(curPro);
+			this.dlgCommentDisplay.setVisible(true);
+		}
 	}
 
 	private List<Bean_production> pro_list = new ArrayList<Bean_production>();
@@ -476,7 +486,7 @@ public class Frm_Index extends JFrame implements ActionListener{
 	private JMenuItem add_vip;
 	private JMenuItem shop_record;
 	private JMenu menu_2;
-	private JMenuItem menuItem;
+	private JMenuItem load_comment;
 	private JMenuItem edit_address;
 	private JMenuItem add_coupon,delete_coupon;
 	

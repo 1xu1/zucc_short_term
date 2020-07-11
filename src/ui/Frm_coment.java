@@ -17,11 +17,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 
 public class Frm_coment extends JDialog implements ActionListener{
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField comment_content;
+	private JTextArea comment_content;
 	private Bean_order_more curOrder=null;
 	
 	public Frm_coment(Bean_order_more curOrder) {
@@ -37,11 +38,6 @@ public class Frm_coment extends JDialog implements ActionListener{
 		JLabel label = new JLabel("\u8BF7\u8F93\u5165\u60A8\u7684\u8BC4\u4EF7\u5185\u5BB9\uFF1A");
 		label.setBounds(10, 10, 417, 15);
 		contentPanel.add(label);
-		
-		comment_content = new JTextField();
-		comment_content.setBounds(10, 35, 402, 152);
-		contentPanel.add(comment_content);
-		comment_content.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("\u8BF7\u9009\u62E9\u60A8\u5BF9\u8BE5 \u4EA7\u54C1\u7684\u6EE1\u610F\u5EA6");
 		lblNewLabel.setBounds(10, 203, 169, 15);
@@ -66,19 +62,23 @@ public class Frm_coment extends JDialog implements ActionListener{
 		star_5 = new JRadioButton("New radio button");
 		star_5.setBounds(286, 199, 22, 23);
 		contentPanel.add(star_5);
+		
+		comment_content = new JTextArea();
+		comment_content.setBounds(20, 35, 377, 158);
+		contentPanel.add(comment_content);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBounds(0, 228, 434, 33);
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane);
 			{
-				okButton = new JButton("OK");
+				okButton = new JButton("\u786E\u8BA4");
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				cancelButton = new JButton("Cancel");
+				cancelButton = new JButton("\u53D6\u6D88");
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -90,6 +90,7 @@ public class Frm_coment extends JDialog implements ActionListener{
 		star_5.addActionListener(this);
 		okButton.addActionListener(this);
 		cancelButton.addActionListener(this);
+		this.comment_content.setLineWrap(true);
 	}
 	private JButton okButton,cancelButton;
 	private  JRadioButton star_1,star_2,star_3,star_4,star_5;
