@@ -52,7 +52,7 @@ public class Frm_Index extends JFrame implements ActionListener{
 				Bean_user.currentLoginUser.setVip_valid(1);
 		}
 		
-		
+		 
 		setTitle("\u751F\u9C9C\u5E02\u573A\u9996\u9875");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -231,9 +231,17 @@ public class Frm_Index extends JFrame implements ActionListener{
 		contentPane.add(button_purchase);
 		
 		promotion_b = new JButton("\u9650\u65F6\u4FC3\u9500\uFF01\uFF01\uFF01");
-		promotion_b.setBounds(760, 166, 117, 70);
+		promotion_b.setBounds(760, 166, 127, 70);
 		promotion_b.addActionListener(this);
 		contentPane.add(promotion_b);
+		
+		lblNewLabel = new JLabel("\u79CD\u7C7B\u5217\u8868\uFF1A");
+		lblNewLabel.setBounds(10, 57, 74, 15);
+		contentPane.add(lblNewLabel);
+		
+		label_1 = new JLabel("\u5546\u54C1\u5217\u8868\uFF1A");
+		label_1.setBounds(338, 57, 54, 15);
+		contentPane.add(label_1);
 		
 		if(Bean_user.currentLoginUser.getManager()==0) {
 				this.menu_1.setVisible(false);
@@ -340,10 +348,12 @@ public class Frm_Index extends JFrame implements ActionListener{
 			dlgPrAdd.setVisible(true);
 		}
 		else if(e.getSource()==this.delete_pr) {
-			if(curType==null) {
+			if(curPro==null) {
 				JOptionPane.showMessageDialog(null, "请先选中商品", "错误", JOptionPane.ERROR_MESSAGE);
 				return;
-			}
+			}			
+			start.Online_Market_Util.production_Manager.delete_pr(curPro);			
+			JOptionPane.showMessageDialog(null, "成功移除促销商品", "成功", JOptionPane.INFORMATION_MESSAGE);
 			
 		}
 		else if(e.getSource()==this.shop_menu) {
@@ -557,6 +567,8 @@ public class Frm_Index extends JFrame implements ActionListener{
 		this.table_pro.repaint();	
 	}
 	String tabel_pr[]= {"名称","商品原价","促销价","规格","剩余数量","详情","开始日期 ","结束日期" };
+	private JLabel lblNewLabel;
+	private JLabel label_1;
 	public void reload_pr(){
 		try {
 			allPro=start.Online_Market_Util.production_Manager.load_pr();

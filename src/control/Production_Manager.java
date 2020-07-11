@@ -214,7 +214,7 @@ public class Production_Manager {
 		}
 	}
 		public void edit_pro(Bean_production b) {
-			
+			 
 			Sql_c s=new Sql_c();
 			String sql="update production set  "
 					+ "pro_name=?,pro_stock=?,pro_price=?,pro_vip_price=?,pro_specification=?,pro_more=? "
@@ -307,10 +307,11 @@ public class Production_Manager {
 				e.printStackTrace();
 			}
 		}
-		public void delete_pr(Bean_promotion pr) {
+		public void delete_pr (Bean_production pr) {
 			
 			Sql_c s=new Sql_c();
-			String sql="delete promotion "
+			String sql="update promotion "
+					+ " set valid=0 "
 					+ " where pr_id=?";
 			try {
 				s.getPt(sql);
@@ -322,6 +323,7 @@ public class Production_Manager {
 				catch (SQLException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
+				
 			}
 		}
 		 
