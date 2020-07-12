@@ -200,10 +200,15 @@ public class Frm_Menu extends JDialog  implements ActionListener{
 			this.dlgAddPro.setVisible(true);
 		}
 		else if(e.getSource()==this.menu_more) {
-			
+			if(curOrder==null) {
+				JOptionPane.showMessageDialog(null, "ÇëÏÈÑ¡ÖÐ²ËÆ×", "´íÎó", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			dlgMore=new Frm_MenuMore(curOrder);
+			dlgMore.setVisible(true);
 		}
 	}
-		
+	private Frm_MenuMore dlgMore=null;
 	
 	
 }

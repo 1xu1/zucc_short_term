@@ -108,4 +108,24 @@ public class Menu_Manager {
 			e.printStackTrace();
 		}
 	}
+	public List<String> load_menu_pro(Bean_menu b){
+		List<String> result=new ArrayList<String>();
+		Sql_c s=new Sql_c();
+		String sql="select pro_name from menu_more where me_id=? ";
+		try {
+			s.getPt(sql);
+			s.pt.setInt(1, b.getMe_id());
+			s.rs=s.pt.executeQuery();		
+			while(s.rs.next()) {
+				result.add(s.rs.getString(1));
+				
+			}
+			s.close_all();
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
