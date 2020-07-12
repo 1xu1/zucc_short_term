@@ -1,6 +1,6 @@
 package model;
 
-public class Bean_me_recommend {
+public class Bean_menu_more {
 	private int me_id,pro_id;
 	private String description;
 	public int getMe_id() {

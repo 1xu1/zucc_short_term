@@ -245,8 +245,9 @@ public class Frm_Index extends JFrame implements ActionListener{
 		label_1.setBounds(338, 57, 106, 15);
 		contentPane.add(label_1);
 		
-		JButton menu_button = new JButton("\u83DC\u8C31\u63A8\u8350");
+		menu_button = new JButton("\u83DC\u8C31\u63A8\u8350");
 		menu_button.setBounds(756, 246, 131, 70);
+		menu_button.addActionListener(this);
 		contentPane.add(menu_button);
 		
 		hot_pro = new JButton("\u70ED\u9500\u5546\u54C1\u63A8\u8350");
@@ -327,7 +328,7 @@ public class Frm_Index extends JFrame implements ActionListener{
 	private Frm_ShopMenuEdit dlgShopMenuEdit=null;
 	private Frm_Menu dlgMenu=null;
 	
-	private JButton name_search,promotion_b, hot_pro ;
+	private JButton name_search,promotion_b, hot_pro ,menu_button;
 	
 	
 	@Override
@@ -495,6 +496,10 @@ public class Frm_Index extends JFrame implements ActionListener{
 		}
 		else if(e.getSource()==hot_pro) {
 			this.reload_pro(Bean_user.currentLoginUser);
+		}
+		else if(e.getSource()==this.menu_button) {
+			this.dlgMenu=new Frm_Menu();
+			this.dlgMenu.setVisible(true);
 		}
 	}
 

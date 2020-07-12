@@ -130,7 +130,8 @@ public class Frm_Menu extends JDialog  implements ActionListener{
 			cancel_button.addActionListener(this);
 			buttonPane.add(cancel_button);
 			
-				
+			if(Bean_user.currentLoginUser.getManager()==0)
+				menu.setVisible(false);	
 				
 		
 	}
@@ -158,6 +159,7 @@ public class Frm_Menu extends JDialog  implements ActionListener{
 	private JMenuItem add_menu;
 	private Frm_MenuAdd dlgAdd=null;
 	private Frm_MenuEdit dlgEdit=null;
+	private Frm_MenuAddPro dlgAddPro=null;
 	public void actionPerformed(ActionEvent e) {
 		// TODO 自动生成的方法存根
 		if(e.getSource()==this.ok_button) {
@@ -190,7 +192,12 @@ public class Frm_Menu extends JDialog  implements ActionListener{
 			this.reload_shop_menu();
 		}
 		else if(e.getSource()==this.menu_addpro) {
-			
+			if(curOrder==null) {
+				JOptionPane.showMessageDialog(null, "请先选中菜谱", "错误", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			dlgAddPro=new Frm_MenuAddPro(this.curOrder);
+			this.dlgAddPro.setVisible(true);
 		}
 		else if(e.getSource()==this.menu_more) {
 			

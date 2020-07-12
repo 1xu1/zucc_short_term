@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Bean_menu;
+import model.Bean_menu_more;
 import model.Bean_order_more;
 import model.Sql_c;
 
@@ -59,16 +60,11 @@ public class Menu_Manager {
 				+ " where me_id=?";
 		try {
 			s.getPt(sql);
-			s.pt.setString(1, b.getMe_name());
 			System.out.println(b.getMe_name());
-			s.pt.setString(2, b.getMe_usage());
 			System.out.println(b.getMe_usage());
-			s.pt.setString(3, b.getMe_step());
 			System.out.println(b.getMe_step());
-			s.pt.setString(4, b.getMe_picture());
 			System.out.println(b.getMe_picture());
-			s.pt.setInt(5, b.getMe_id());
-			System.out.println( b.getMe_id());
+			System.out.println(b.getMe_id());
 			s.pt.execute();
 			s.close_all();				
 			}
@@ -87,6 +83,23 @@ public class Menu_Manager {
 			s.getPt(sql);
 			
 			s.pt.setInt(1, b.getMe_id());
+			s.pt.execute();
+			s.close_all();				
+			}
+			catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+	}
+	public void add_menu_pro(Bean_menu b,int id,String des) {
+		Sql_c s=new Sql_c();
+		String sql="insert into me_recommend(me_id,pro_id,description)"
+				+ " values(?,?,?)";
+		try {
+			s.getPt(sql);
+			s.pt.setInt(1, b.getMe_id());
+			s.pt.setInt(2, id);
+			s.pt.setString(3, des);
 			s.pt.execute();
 			s.close_all();				
 			}
