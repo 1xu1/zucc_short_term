@@ -157,9 +157,6 @@ public class Frm_Index extends JFrame implements ActionListener{
 		pro_manager.add(delete_pr);
 		delete_pr.addActionListener(this);
 		
-		add_menu = new JMenuItem("\u7F16\u8F91\u83DC\u5355");
-		add_menu.addActionListener(this);
-		
 		JMenu coupon_manager = new JMenu("\u7BA1\u7406\u4F18\u60E0\u5238");
 		menu_1.add(coupon_manager);
 		
@@ -170,11 +167,6 @@ public class Frm_Index extends JFrame implements ActionListener{
 		delete_coupon = new JMenuItem("\u64A4\u9500\u4F18\u60E0\u5238");
 		delete_coupon.addActionListener(this);
 		coupon_manager.add(delete_coupon);
-		menu_1.add(add_menu);
-		
-		add_menu_list = new JMenuItem("\u7F16\u8F91\u83DC\u5355\u63A8\u8350\u8868");
-		add_menu_list.addActionListener(this);
-		menu_1.add(add_menu_list);
 		
 		JMenu mnNewMenu = new JMenu("\u7F16\u8F91\u5546\u54C1\u91C7\u8D2D\u5355");
 		menu_1.add(mnNewMenu);
@@ -185,7 +177,10 @@ public class Frm_Index extends JFrame implements ActionListener{
 		
 		shop_menu_edit = new JMenuItem("\u7F16\u8F91\u91C7\u8D2D\u8BA2\u5355\u72B6\u6001");
 		mnNewMenu.add(shop_menu_edit);
-		shop_menu_edit.addActionListener(this);
+		
+		edit_menu = new JMenuItem("\u7F16\u8F91\u83DC\u5355");
+		menu_1.add(edit_menu);
+		edit_menu.addActionListener(this);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -305,8 +300,6 @@ public class Frm_Index extends JFrame implements ActionListener{
 	private JMenuItem load_user_data;
 	private JMenuItem load_coupon;
 	private JMenuItem shop_menu;
-	private JMenuItem add_menu;
-	private JMenuItem  add_menu_list;
 	private JMenu menu_1;
 	private JMenuItem user_edit=null;
 	private JMenuItem user_delete=null;
@@ -332,6 +325,7 @@ public class Frm_Index extends JFrame implements ActionListener{
 	private Frm_PrAdd dlgPrAdd=null;
 	private Frm_ShopMenuQuatity dlgShopMenuQuatity=null;
 	private Frm_ShopMenuEdit dlgShopMenuEdit=null;
+	private Frm_Menu dlgMenu=null;
 	
 	private JButton name_search,promotion_b, hot_pro ;
 	
@@ -385,11 +379,9 @@ public class Frm_Index extends JFrame implements ActionListener{
 			this.dlgCoupDelete=new Frm_CouponDelete();
 			this.dlgCoupDelete.setVisible(true);
 		}
-		else if(e.getSource()==this.add_menu) {
-			System.out.print(1);
-		}
-		else if(e.getSource()==this.add_menu_list) {
-			System.out.print(1);
+		else if(e.getSource()==this.edit_menu) {
+			this.dlgMenu=new Frm_Menu();
+			this.dlgMenu.setVisible(true);
 		}
 		else if(e.getSource()==this.shop_menu_edit) {
 			this.dlgShopMenuEdit=new Frm_ShopMenuEdit();
@@ -616,6 +608,7 @@ public class Frm_Index extends JFrame implements ActionListener{
 	String tabel_pr[]= {"名称","商品原价","促销价","规格","剩余数量","详情","开始日期 ","结束日期" };
 	private JLabel lblNewLabel;
 	private JLabel label_1;
+	private JMenuItem edit_menu;
 	public void reload_pr(){
 		try {
 			allPro=start.Online_Market_Util.production_Manager.load_pr();

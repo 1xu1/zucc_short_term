@@ -33,5 +33,10 @@ public class Bean_menu {
 	public void setMe_picture(String me_picture) {
 		this.me_picture = me_picture;
 	}
-	
+	public String getCell(int i) { 
+		if(i==0) return this.me_name;
+		else if(i==1) return this.me_step;
+		else if(i==2) return this.me_usage;
+		else return "";
+	}
 }
