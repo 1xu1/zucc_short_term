@@ -330,6 +330,7 @@ public class Frm_Index extends JFrame implements ActionListener{
 	private Frm_CommentDisplay dlgCommentDisplay=null;
 	private Frm_PrAdd dlgPrAdd=null;
 	private Frm_ShopMenuQuatity dlgShopMenuQuatity=null;
+	private Frm_ShopMenuEdit dlgShopMenuEdit=null;
 	
 	private JButton name_search,promotion_b ;
 	
@@ -390,8 +391,8 @@ public class Frm_Index extends JFrame implements ActionListener{
 			System.out.print(1);
 		}
 		else if(e.getSource()==this.shop_menu_edit) {
-			System.out.print(1);
-			//?
+			this.dlgShopMenuEdit=new Frm_ShopMenuEdit();
+			this.dlgShopMenuEdit.setVisible(true);
 		}
 		else if(e.getSource()==this.pro_stock) {
 			if(curType==null) {

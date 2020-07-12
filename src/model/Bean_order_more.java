@@ -3,7 +3,13 @@ package model;
 import java.sql.Timestamp;
 
 public class Bean_order_more {
-	private String pro_name,order_state,coupon_type,coupon_content,user_id;
+	private String pro_name,order_state,coupon_type,coupon_content,user_id,pro_specification;
+	public String getPro_specification() {
+		return pro_specification;
+	}
+	public void setPro_specification(String pro_specification) {
+		this.pro_specification = pro_specification;
+	}
 	public String getUser_id() {
 		return user_id;
 	}
@@ -80,5 +86,14 @@ public class Bean_order_more {
 		else if(i==3) return String.valueOf(this.now_price);
 		else  if(i==4) return this.arrived_time.toString();
 		else if(i==5) return this.order_state;
-		else return ""	;}
+		else return ""	;
+	}
+	public String getCell1(int i ) {
+		if(i==0) return this.user_id;
+		else if(i==1) return String.valueOf(this.pro_name);
+		else if(i==2) return String.valueOf(this.pro_specification);
+		else if(i==3) return String.valueOf(this.purchase_amout);
+		else  if(i==4) return this.order_state;
+		else return ""	;
+	}
 }

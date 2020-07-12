@@ -17,7 +17,7 @@ public class Order_Manager {
 	public List<Bean_u_order> load_order(Bean_user user) {
 		List<Bean_u_order> b = new ArrayList<Bean_u_order>();
 		Sql_c s=new Sql_c();
-		String sql="select order_id,address_id,user_id,pre_price,price,order_state,arrived_time from u_orser "
+		String sql="select order_id,address_id,user_id,pre_price,price,order_state,arrived_time from u_order "
 				+ " where user_id=?";
 		s.getPt(sql);
 	 
