@@ -42,7 +42,7 @@ import javax.swing.ListSelectionModel;
 
 public class Frm_Index extends JFrame implements ActionListener{
 	JLabel label =null;
-	
+	JMenuItem pro_stock=null,shop_menu_edit=null;
 	
 	public Frm_Index() {
 		//System.out.print(Bean_user.currentLoginUser.getVip_end_date().toString());
@@ -176,9 +176,16 @@ public class Frm_Index extends JFrame implements ActionListener{
 		add_menu_list.addActionListener(this);
 		menu_1.add(add_menu_list);
 		
-		edit_pro_shop = new JMenuItem("\u7F16\u8F91\u5546\u54C1\u91C7\u8D2D\u5355");
-		edit_pro_shop.addActionListener(this);
-		menu_1.add(edit_pro_shop);
+		JMenu mnNewMenu = new JMenu("\u7F16\u8F91\u5546\u54C1\u91C7\u8D2D\u5355");
+		menu_1.add(mnNewMenu);
+		
+		pro_stock = new JMenuItem("\u5BF9\u9009\u4E2D\u5546\u54C1\u91C7\u8D2D");
+		mnNewMenu.add(pro_stock);
+		pro_stock.addActionListener(this);
+		
+		shop_menu_edit = new JMenuItem("\u7F16\u8F91\u91C7\u8D2D\u8BA2\u5355\u72B6\u6001");
+		mnNewMenu.add(shop_menu_edit);
+		shop_menu_edit.addActionListener(this);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -240,8 +247,16 @@ public class Frm_Index extends JFrame implements ActionListener{
 		contentPane.add(lblNewLabel);
 		
 		label_1 = new JLabel("\u5546\u54C1\u5217\u8868\uFF1A");
-		label_1.setBounds(338, 57, 54, 15);
+		label_1.setBounds(338, 57, 106, 15);
 		contentPane.add(label_1);
+		
+		JButton menu_button = new JButton("\u83DC\u8C31\u63A8\u8350");
+		menu_button.setBounds(756, 246, 131, 70);
+		contentPane.add(menu_button);
+		
+		JButton hot_pro = new JButton("\u70ED\u9500\u5546\u54C1\u63A8\u8350");
+		hot_pro.setBounds(760, 334, 127, 70);
+		contentPane.add(hot_pro);
 		
 		if(Bean_user.currentLoginUser.getManager()==0) {
 				this.menu_1.setVisible(false);
@@ -291,7 +306,6 @@ public class Frm_Index extends JFrame implements ActionListener{
 	private JMenuItem shop_menu;
 	private JMenuItem add_menu;
 	private JMenuItem  add_menu_list;
-	private JMenuItem edit_pro_shop;
 	private JMenu menu_1;
 	private JMenuItem user_edit=null;
 	private JMenuItem user_delete=null;
@@ -315,6 +329,7 @@ public class Frm_Index extends JFrame implements ActionListener{
 	private Frm_OrderDisplay dlgOrderDisplay=null;
 	private Frm_CommentDisplay dlgCommentDisplay=null;
 	private Frm_PrAdd dlgPrAdd=null;
+	private Frm_ShopMenuQuatity dlgShopMenuQuatity=null;
 	
 	private JButton name_search,promotion_b ;
 	
@@ -374,8 +389,17 @@ public class Frm_Index extends JFrame implements ActionListener{
 		else if(e.getSource()==this.add_menu_list) {
 			System.out.print(1);
 		}
-		else if(e.getSource()==this.edit_pro_shop) {
+		else if(e.getSource()==this.shop_menu_edit) {
 			System.out.print(1);
+			//?
+		}
+		else if(e.getSource()==this.pro_stock) {
+			if(curType==null) {
+				JOptionPane.showMessageDialog(null, "请先选中种类", "错误", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			dlgShopMenuQuatity=new Frm_ShopMenuQuatity(curPro);
+			dlgShopMenuQuatity.setVisible(true);
 		}
 		else if(e.getSource()==this.add_type) {
 			dlgTypeAdd = new Frm_TypeAdd(this);
