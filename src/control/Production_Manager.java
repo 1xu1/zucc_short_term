@@ -102,6 +102,32 @@ public class Production_Manager {
 		return bb;
 	}
 	
+	//根据用户推荐商品
+	public List<Bean_production> load_pro(Bean_user user){
+		List<Bean_production> b = new ArrayList<Bean_production>();
+		Bean_production bb=null;
+		List<Integer> id=new ArrayList<Integer>();
+		Sql_c s=new Sql_c();
+		String sql="select pro_id from pro_sold order by pro_sold ";
+		try {
+			s.getRs(sql);
+			while(s.rs.next()) {
+				int t=s.rs.getInt(1);
+				id.add(t);
+			}
+			s.close();
+			for(int i=0;i<id.size();i++) {
+				b.add(load_pro(id.get(i)));
+			}
+			s.close_all();
+			return b;
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return b;
+	}
+	
 	public List<Bean_production> load_pro(String name){
 		List<Bean_production> b = new ArrayList<Bean_production>();
 		Sql_c s=new Sql_c();

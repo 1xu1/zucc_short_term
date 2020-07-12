@@ -254,8 +254,9 @@ public class Frm_Index extends JFrame implements ActionListener{
 		menu_button.setBounds(756, 246, 131, 70);
 		contentPane.add(menu_button);
 		
-		JButton hot_pro = new JButton("\u70ED\u9500\u5546\u54C1\u63A8\u8350");
+		hot_pro = new JButton("\u70ED\u9500\u5546\u54C1\u63A8\u8350");
 		hot_pro.setBounds(760, 334, 127, 70);
+		hot_pro.addActionListener(this);
 		contentPane.add(hot_pro);
 		
 		if(Bean_user.currentLoginUser.getManager()==0) {
@@ -332,7 +333,7 @@ public class Frm_Index extends JFrame implements ActionListener{
 	private Frm_ShopMenuQuatity dlgShopMenuQuatity=null;
 	private Frm_ShopMenuEdit dlgShopMenuEdit=null;
 	
-	private JButton name_search,promotion_b ;
+	private JButton name_search,promotion_b, hot_pro ;
 	
 	
 	@Override
@@ -500,6 +501,9 @@ public class Frm_Index extends JFrame implements ActionListener{
 		else if(e.getSource()==promotion_b) {
 			this.reload_pr();
 		}
+		else if(e.getSource()==hot_pro) {
+			this.reload_pro(Bean_user.currentLoginUser);
+		}
 	}
 
 	private List<Bean_production> pro_list = new ArrayList<Bean_production>();
@@ -577,6 +581,24 @@ public class Frm_Index extends JFrame implements ActionListener{
 		if(name.equals("")) return;
 		try {
 			allPro=start.Online_Market_Util.production_Manager.load_pro(name);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
+		table_pro_data =new Object[allPro.size()][Bean_production.tableTitles.length];
+		for(int i=0;i<allPro.size();i++){
+			for(int j=0;j<Bean_production.tableTitles.length;j++)
+				table_pro_data[i][j]=allPro.get(i).getCell(j);
+		}
+		
+		pro_model.setDataVector(table_pro_data,pro_tile);
+		this.table_pro.validate();
+		this.table_pro.repaint();	
+	}
+	public void reload_pro(Bean_user user){
+		
+		try {
+			allPro=start.Online_Market_Util.production_Manager.load_pro(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;

@@ -33,6 +33,7 @@ public class Order_Manager {
 				bb.setPrice(s.rs.getFloat(5));
 				bb.setOrder_state(s.rs.getString(6));
 				bb.setArrived_time(s.rs.getTimestamp(7));
+				
 				b.add(bb);
 			}
 			s.close_all();
