@@ -69,19 +69,20 @@ public class Frm_Register extends JDialog implements ActionListener {
 			String userid=this.edtUserId.getText();
 			String pwd1=new String(this.edtPwd.getPassword());
 			String pwd2=new String(this.edtPwd2.getPassword());
+			if(manager_yes.isSelected()) {
+			manager_yes_value=1;
+}
+else {
+			manager_yes_value=0;
+}
 			try {
-				if(manager_yes.isSelected()) {
-				manager_yes_value=1;
-			}
-			else {
-				manager_yes_value=0;
-			}
 				Bean_user user=start.Online_Market_Util.user_Manager.reg(userid,pwd1,pwd2,manager_yes_value);
-				this.setVisible(false);
-			} catch (BaseException e1) {
-				JOptionPane.showMessageDialog(null, e1.getMessage(),"´íÎó",JOptionPane.ERROR_MESSAGE);
+			}
+			catch (Exception p) {
+				p.printStackTrace();
 				return;
 			}
+			this.setVisible(false);
 		}
 		
 			

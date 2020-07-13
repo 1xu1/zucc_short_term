@@ -177,9 +177,14 @@ public class Frm_Index extends JFrame implements ActionListener{
 		
 		shop_menu_edit = new JMenuItem("\u7F16\u8F91\u91C7\u8D2D\u8BA2\u5355\u72B6\u6001");
 		mnNewMenu.add(shop_menu_edit);
+		shop_menu_edit.addActionListener(this);
 		
 		edit_menu = new JMenuItem("\u7F16\u8F91\u83DC\u5355");
 		menu_1.add(edit_menu);
+		
+		order_edit = new JMenuItem("\u8BA2\u5355\u64CD\u4F5C");
+		menu_1.add(order_edit);
+		order_edit.addActionListener(this);
 		edit_menu.addActionListener(this);
 		
 		contentPane = new JPanel();
@@ -501,8 +506,12 @@ public class Frm_Index extends JFrame implements ActionListener{
 			this.dlgMenu=new Frm_Menu();
 			this.dlgMenu.setVisible(true);
 		}
+		else if(e.getSource()==this.order_edit) {
+			dlgOrderEdit=new Frm_OrderEdit();
+			this.dlgOrderEdit.setVisible(true);
+		}
 	}
-
+	private Frm_OrderEdit dlgOrderEdit=null;
 	private List<Bean_production> pro_list = new ArrayList<Bean_production>();
 	//private Frm_
 	private Object table_type_data[][];
@@ -614,6 +623,7 @@ public class Frm_Index extends JFrame implements ActionListener{
 	private JLabel lblNewLabel;
 	private JLabel label_1;
 	private JMenuItem edit_menu;
+	private JMenuItem order_edit;
 	public void reload_pr(){
 		try {
 			allPro=start.Online_Market_Util.production_Manager.load_pr();

@@ -96,4 +96,14 @@ public class Bean_order_more {
 		else  if(i==4) return this.order_state;
 		else return ""	;
 	}
+	public String getCell2(int i ) {
+		if(i==0) return this.user_id;
+		else if(i==1) return this.pro_name;
+		else if(i==2) return String.valueOf(this.purchase_amout);
+		else if(i==3) return String.valueOf(this.pre_price);
+		else if(i==4) return String.valueOf(this.now_price);
+		else  if(i==5) return this.arrived_time.toString();
+		else if(i==6) return this.order_state;
+		else return ""	;
+	}
 }
