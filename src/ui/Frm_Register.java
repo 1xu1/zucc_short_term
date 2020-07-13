@@ -54,12 +54,14 @@ public class Frm_Register extends JDialog implements ActionListener {
 		workPane.add(manager_yes);
 		this.getContentPane().add(workPane, BorderLayout.CENTER);
 		this.setSize(300, 180);
+		
+		this.btnCancel.addActionListener(this);
+		this.btnOk.addActionListener(this);
 		double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 		this.setLocation((int) (width - this.getWidth()) / 2,
 				(int) (height - this.getHeight()) / 2);
-		this.btnCancel.addActionListener(this);
-		this.btnOk.addActionListener(this);
+		this.setAlwaysOnTop(true);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {

@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -91,6 +92,10 @@ public class Frm_coment extends JDialog implements ActionListener{
 		okButton.addActionListener(this);
 		cancelButton.addActionListener(this);
 		this.comment_content.setLineWrap(true);
+		double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+		this.setLocation((int) (width - this.getWidth()) / 2,
+				(int) (height - this.getHeight()) / 2);
 	}
 	private JButton okButton,cancelButton;
 	private  JRadioButton star_1,star_2,star_3,star_4,star_5;
@@ -108,7 +113,12 @@ public class Frm_coment extends JDialog implements ActionListener{
 				star=3;
 			else if(star_2.isSelected())
 				star=2;
-			start.Online_Market_Util.comment_Manager.add_comment(curOrder,Bean_user.currentLoginUser,this.comment_content.getText(),star);
+			try {
+				start.Online_Market_Util.comment_Manager.add_comment(curOrder,Bean_user.currentLoginUser,this.comment_content.getText(),star);
+			}
+			catch(Exception p){
+				JOptionPane.showMessageDialog(null, "无法重复评价", "错误", JOptionPane.ERROR_MESSAGE); return;
+			}
 			JOptionPane.showMessageDialog(null, "成功评价", "成功", JOptionPane.INFORMATION_MESSAGE);
 			this.setVisible(false);
 		}

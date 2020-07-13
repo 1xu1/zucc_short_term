@@ -43,11 +43,8 @@ public class Frm_AddSelect extends JDialog  implements ActionListener{
 	
 	public Frm_AddSelect(Frm_ShopMenu f) {
 		this.f=f;
-		// ∆¡ƒªæ”÷–œ‘ æ
-		double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-		this.setLocation((int) (width - this.getWidth()) / 2,
-				(int) (height - this.getHeight()) / 2);
+		this.setAlwaysOnTop(true);
+		
 		this.validate();
 		this.pro_list=pro_list;
 		this.pre_price=pre_price;
@@ -86,6 +83,11 @@ public class Frm_AddSelect extends JDialog  implements ActionListener{
 		//address_menu.setBounds(10, 31, 414, 397);
 		//contentPanel.add(address_menu);
 		this.reload_add_table();
+		// ∆¡ƒªæ”÷–œ‘ æ
+				double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+				double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+				this.setLocation((int) (width - this.getWidth()) / 2,
+						(int) (height - this.getHeight()) / 2);
 		address_menu.addMouseListener(new MouseAdapter (){	
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -98,7 +100,7 @@ public class Frm_AddSelect extends JDialog  implements ActionListener{
 				curAdd=Frm_AddSelect.this.add_list.get(i);
 				curAdd_Index=i;
 			}	    	
-	    });
+	    });this.setAlwaysOnTop(true);
 	}
 	
 	private JButton cancel_button,ok_button;

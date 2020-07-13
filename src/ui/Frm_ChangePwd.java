@@ -3,6 +3,7 @@ package ui;
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -86,6 +87,11 @@ public class Frm_ChangePwd  extends JDialog implements ActionListener {
 			
 			this.cancelButton.addActionListener(this);
 			this.okButton.addActionListener(this);
+			double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+			double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+			this.setLocation((int) (width - this.getWidth()) / 2,
+					(int) (height - this.getHeight()) / 2);
+			this.setAlwaysOnTop(true);
 		
 	}
 	public void actionPerformed(ActionEvent e) {
@@ -100,7 +106,7 @@ public class Frm_ChangePwd  extends JDialog implements ActionListener {
 			} catch (BaseException e1) {
 				// TODO 自动生成的 catch 块
 				e1.printStackTrace();
-				
+				return;
 			}
 				this.setVisible(false);
 			} 

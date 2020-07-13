@@ -43,10 +43,7 @@ public class Frm_CouponSelect extends JDialog  implements ActionListener{
 	
 	public Frm_CouponSelect(Frm_ShopMenu f) {
 		this.f=f;
-		double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-		this.setLocation((int) (width - this.getWidth()) / 2,
-				(int) (height - this.getHeight()) / 2);
+		
 		this.validate();
 		setTitle("\u4E2A\u4EBA\u53EF\u7528\u4F18\u60E0\u5238");
 		setBounds(100, 100, 569, 510);
@@ -82,6 +79,10 @@ public class Frm_CouponSelect extends JDialog  implements ActionListener{
 				buttonPane.add(cancel_button);
 			}
 		}
+		double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+		this.setLocation((int) (width - this.getWidth()) / 2,
+				(int) (height - this.getHeight()) / 2);
 	}
 	
 	private JButton cancel_button,ok_button;

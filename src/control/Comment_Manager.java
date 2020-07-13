@@ -8,7 +8,7 @@ import java.util.List;
 import model.*;
 
 public class Comment_Manager {
-	public void add_comment(Bean_order_more b,Bean_user user,String comment,int star) {
+	public void add_comment(Bean_order_more b,Bean_user user,String comment,int star) throws SQLException {
 		Sql_c s=new Sql_c();
 		String sql="insert into comment (user_id,user_name,pro_id,order_id,cm_star,cm_content,cm_date) "
 				+ "values (?,?,?,?,?,?,now())";
@@ -27,6 +27,7 @@ public class Comment_Manager {
 		 catch (SQLException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
+			throw e;
 		}
 	}
 	public List<Bean_comment> load_comment(Bean_production curPro) {

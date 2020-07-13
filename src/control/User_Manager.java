@@ -106,6 +106,8 @@ public class User_Manager {
 		// TODO Auto-generated method stub
 		if(user.equals("")||oldPwd.equals("")||newPwd.equals("")||newPwd2.equals(""))
 			throw new BusinessException("输入不能为空");
+		if(!newPwd2.equals(newPwd))
+			throw new BusinessException("两次密码不一致");
 		Sql_c s = new Sql_c();
 		String sql;
 		Bean_user b=new Bean_user();

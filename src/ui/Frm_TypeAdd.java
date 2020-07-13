@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,7 +31,7 @@ public class Frm_TypeAdd extends JDialog  implements ActionListener {
 	
 	public Frm_TypeAdd(Frm_Index index) {
 		this.index=index;
-		setTitle("\u589E\u6DFB\u4EA7\u54C1");
+		setTitle("‘ˆÃÌ÷÷¿‡");
 		setBounds(100, 100, 292, 309);
 		getContentPane().setLayout(null);
 		contentPanel.setBounds(0, 0, 274, 228);
@@ -84,6 +85,10 @@ public class Frm_TypeAdd extends JDialog  implements ActionListener {
 				cancelButton.setBounds(201, 238, 65, 23);
 				getContentPane().add(cancelButton);
 				cancelButton.addActionListener(this) ;
+				double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+				double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+				this.setLocation((int) (width - this.getWidth()) / 2,
+						(int) (height - this.getHeight()) / 2);
 	}
 	private JButton okButton;
 	private JButton cancelButton;

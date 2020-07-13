@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -34,7 +35,7 @@ public class Frm_ProEdit extends JDialog  implements ActionListener {
 	
 	public Frm_ProEdit(Bean_production pro) {
 		this.pro=pro;
-		setTitle("\u589E\u6DFB\u4EA7\u54C1");
+		setTitle("±à¼­²úÆ·");
 		setBounds(100, 100, 292, 309);
 		getContentPane().setLayout(null);
 		contentPanel.setBounds(0, 0, 274, 228);
@@ -146,6 +147,10 @@ public class Frm_ProEdit extends JDialog  implements ActionListener {
 				pro_spe.setText(pro.getPro_specification());
 				pro_stock.setText(pro.getCell(4));
 				pro_vip_price.setText(pro.getCell(2));
+				double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+				double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+				this.setLocation((int) (width - this.getWidth()) / 2,
+						(int) (height - this.getHeight()) / 2);
 	}
 	private JButton okButton;
 	private JButton cancelButton;

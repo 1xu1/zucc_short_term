@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JDialog;
 import net.miginfocom.swing.MigLayout;
@@ -81,7 +82,11 @@ public class Frm_UserData_Display extends JDialog {
 		if(b.getVip_end_date()!=null) {
 			user_vip.setText(b.getVip_end_date().toString());
 		}
-		
+		double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+		this.setLocation((int) (width - this.getWidth()) / 2,
+				(int) (height - this.getHeight()) / 2);
+		this.setAlwaysOnTop(true);
 		
 	}
 

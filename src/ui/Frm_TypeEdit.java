@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -27,10 +28,11 @@ public class Frm_TypeEdit extends JDialog  implements ActionListener {
 	private JTextField type_name;
 	private JTextField type_more;
 	private Frm_Index index;
-	
+	private Bean_type curType;
 	public Frm_TypeEdit(Bean_type curType,Frm_Index index) {
 		this.index=index;
-		setTitle("\u589E\u6DFB\u4EA7\u54C1");
+		this.curType=curType;
+		setTitle("编辑种类");
 		setBounds(100, 100, 292, 309);
 		getContentPane().setLayout(null);
 		contentPanel.setBounds(0, 0, 274, 228);
@@ -86,6 +88,10 @@ public class Frm_TypeEdit extends JDialog  implements ActionListener {
 				cancelButton.addActionListener(this) ;
 		type_name.setText(curType.getType_name());
 		type_more.setText(curType.getType_more());
+		double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+		this.setLocation((int) (width - this.getWidth()) / 2,
+				(int) (height - this.getHeight()) / 2);
 	}
 	private JButton okButton;
 	private JButton cancelButton;
@@ -93,7 +99,7 @@ public class Frm_TypeEdit extends JDialog  implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO 自动生成的方法存根
 		if(e.getSource()==this.okButton) {
-			Bean_type b =new Bean_type();
+			Bean_type b =this.curType;
 			
 			try {
 			b.setType_name(type_name.getText());

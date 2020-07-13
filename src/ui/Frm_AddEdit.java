@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.BorderLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,9 +31,10 @@ public class Frm_AddEdit extends JDialog  implements ActionListener {
 	private Frm_Address f=null;
 	
 	public Frm_AddEdit(Bean_address b,Frm_Address f) {
+		
 		this.b=b;
 		this.f=f;
-		setTitle("\u589E\u6DFB\u5730\u5740");
+		setTitle("编辑地址");
 		setBounds(100, 100, 292, 270);
 		getContentPane().setLayout(null);
 		contentPanel.setBounds(0, 0, 274, 228);
@@ -136,6 +138,11 @@ public class Frm_AddEdit extends JDialog  implements ActionListener {
 			con_phone.setText(b.getCon_phone());
 			a_city.setText(b.getA_city());
 			
+			double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+			double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+			this.setLocation((int) (width - this.getWidth()) / 2,
+					(int) (height - this.getHeight()) / 2);	
+			
 	}
 	private JButton okButton;
 	private JButton cancelButton;
@@ -143,8 +150,13 @@ public class Frm_AddEdit extends JDialog  implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO 自动生成的方法存根
 		if(e.getSource()==this.okButton) {
-			Bean_address b=new Bean_address();
-			
+			Bean_address b=this.b;
+			if(con_name.getText().equals("")||a_address.getText().equals("")
+					||province.getText().equals("")||area.getText().equals("")
+					||con_phone.getText().equals("")||a_city.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "输入不能为空", "错误", JOptionPane.ERROR_MESSAGE); 
+				return;
+			}
 			try {
 			b.setCon_name(con_name.getText());
 			b.setA_address(a_address.getText());
@@ -159,10 +171,10 @@ public class Frm_AddEdit extends JDialog  implements ActionListener {
 				return;
 			}
 			
-			start.Online_Market_Util.address_Manager.edit_address(b);
+			start.Online_Market_Util.address_Manager.edit_address(this.b);
 			JOptionPane.showMessageDialog(null, "成功", "成功修改地址", JOptionPane.INFORMATION_MESSAGE); 
 			this.setVisible(false);
-			//f.reload_add_table();
+			f.reload_add_table();
 		}
 		else if(e.getSource()==this.cancelButton) {
 			this.setVisible(false);

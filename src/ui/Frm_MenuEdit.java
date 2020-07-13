@@ -33,7 +33,7 @@ public class Frm_MenuEdit extends JDialog  implements ActionListener {
 		this.f=f;
 		this.curMenu=curMenu;
 		this.validate();
-		setTitle("\u589E\u6DFB\u5730\u5740");
+		setTitle("ÔöÌí²ËÆ×");
 		setBounds(100, 100, 292, 270);
 		getContentPane().setLayout(null);
 		contentPanel.setBounds(0, 0, 274, 228);

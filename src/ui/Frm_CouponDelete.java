@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
@@ -76,6 +77,10 @@ public class Frm_CouponDelete extends JDialog  implements ActionListener {
 		buttonPane.setBounds(0, 263, 274, -44);
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			buttonPane.setLayout(null);
+			double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+			double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+			this.setLocation((int) (width - this.getWidth()) / 2,
+					(int) (height - this.getHeight()) / 2);
 	}
 	private JButton okButton;
 	private JButton cancelButton;

@@ -29,10 +29,7 @@ public class Frm_UserEdit extends JDialog  implements ActionListener{
 
 	
 	public Frm_UserEdit() {
-		double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-		this.setLocation((int) (width - this.getWidth()) / 2,
-				(int) (height - this.getHeight()) / 2);
+		
 		setTitle("\u7F16\u8F91\u6307\u5B9A\u7528\u6237\u4FE1\u606F");
 		//super(f,s,c);
 		Bean_user b = start.Online_Market_Util.user_Manager.load_user_data();
@@ -99,6 +96,10 @@ public class Frm_UserEdit extends JDialog  implements ActionListener{
 					cancelButton = new JButton("\u53D6\u6D88");
 					cancelButton.addActionListener(this) ;
 					buttonPane.add(cancelButton);
+					double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+					double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+					this.setLocation((int) (width - this.getWidth()) / 2,
+							(int) (height - this.getHeight()) / 2);
 					
 	}
 	private JButton okButton;

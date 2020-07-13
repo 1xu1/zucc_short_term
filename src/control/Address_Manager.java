@@ -27,6 +27,7 @@ public class Address_Manager {
 				bb.setA_address(s.rs.getString(6));
 				bb.setCon_name(s.rs.getString(7));
 				bb.setCon_phone(s.rs.getString(8));
+				
 				b.add(bb);
 			}
 			s.close_all();
@@ -61,13 +62,18 @@ public class Address_Manager {
 	}
 	
 	
-	public void edit_address(Bean_address b) {
+	public void edit_address(Bean_address bb) {
 		Sql_c s=new Sql_c();
+		Bean_address b=bb;
+		
+		
 		String sql="update address set "
 				+ "user_id=?,province=?,a_city=?,area=?,a_address=?,con_name=?,con_phone=? "
 				+ "where address_id =? "
 				;
 		try {
+			//System.out.print(s.conn.getAutoCommit());
+			
 			s.getPt(sql);
 			s.pt.setString(1, Bean_user.currentLoginUser.getUser_id());
 			s.pt.setString(2, b.getProvince());
@@ -77,7 +83,11 @@ public class Address_Manager {
 			s.pt.setString(6, b.getCon_name());
 			s.pt.setString(7, b.getCon_phone());
 			s.pt.setInt(8, b.getAddress_id());
-			s.pt.execute();
+			
+			
+			s.pt.executeUpdate();
+			//s.conn.commit();
+			
 			s.close_all();				
 			}
 			catch (SQLException e) {

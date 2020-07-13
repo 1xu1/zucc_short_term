@@ -30,10 +30,7 @@ public class Frm_AddAdd extends JDialog  implements ActionListener {
 	private Frm_Address f=null;
 	
 	public Frm_AddAdd(Frm_Address f) {
-		double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-		this.setLocation((int) (width - this.getWidth()) / 2,
-				(int) (height - this.getHeight()) / 2);
+		
 		this.validate();
 		this.f=f;
 		setTitle("\u589E\u6DFB\u5730\u5740");
@@ -132,6 +129,10 @@ public class Frm_AddAdd extends JDialog  implements ActionListener {
 		buttonPane.setBounds(0, 263, 274, -44);
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			buttonPane.setLayout(null);
+			double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+			double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+			this.setLocation((int) (width - this.getWidth()) / 2,
+					(int) (height - this.getHeight()) / 2);
 	}
 	private JButton okButton;
 	private JButton cancelButton;
@@ -140,7 +141,12 @@ public class Frm_AddAdd extends JDialog  implements ActionListener {
 		// TODO 自动生成的方法存根
 		if(e.getSource()==this.okButton) {
 			Bean_address b=new Bean_address();
-			
+			if(con_name.getText().equals("")||a_address.getText().equals("")
+					||province.getText().equals("")||area.getText().equals("")
+					||con_phone.getText().equals("")||a_city.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "输入不能为空", "错误", JOptionPane.ERROR_MESSAGE); 
+				return;
+			}
 			try {
 			b.setCon_name(con_name.getText());
 			b.setA_address(a_address.getText());
@@ -158,7 +164,7 @@ public class Frm_AddAdd extends JDialog  implements ActionListener {
 			start.Online_Market_Util.address_Manager.add_address(b);
 			JOptionPane.showMessageDialog(null, "成功", "成功增添地址", JOptionPane.INFORMATION_MESSAGE); 
 			this.setVisible(false);
-			//f.reload_add_table();
+			f.reload_add_table();
 		}
 		else if(e.getSource()==this.cancelButton) {
 			this.setVisible(false);

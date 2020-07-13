@@ -279,7 +279,7 @@ public class Frm_Index extends JFrame implements ActionListener{
 				if(i<0) {
 					return;
 				}
-				
+				Frm_Index.this.curType=Frm_Index.this.allType.get(i);
 				Frm_Index.this.reload_pro(i);
 				
 			}	    	
@@ -394,8 +394,8 @@ public class Frm_Index extends JFrame implements ActionListener{
 			this.dlgShopMenuEdit.setVisible(true);
 		}
 		else if(e.getSource()==this.pro_stock) {
-			if(curType==null) {
-				JOptionPane.showMessageDialog(null, "请先选中种类", "错误", JOptionPane.ERROR_MESSAGE);
+			if(curPro==null) {
+				JOptionPane.showMessageDialog(null, "请先选中商品", "错误", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			dlgShopMenuQuatity=new Frm_ShopMenuQuatity(curPro);
@@ -411,6 +411,8 @@ public class Frm_Index extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(null, "请先选中种类", "错误", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
+			Bean_type type=new Bean_type();
+			
 			dlgTypeEdit=new Frm_TypeEdit(curType,this);
 			dlgTypeEdit.setVisible(true);
 			
@@ -443,7 +445,7 @@ public class Frm_Index extends JFrame implements ActionListener{
 			}
 			dlgProEdit = new Frm_ProEdit(curPro);
 			dlgProEdit.setVisible(true);
-			curType=null;
+			curPro=null;
 		}
 		else if(e.getSource()==this.delete_pro) {
 			if(curPro==null) {
@@ -519,13 +521,13 @@ public class Frm_Index extends JFrame implements ActionListener{
 	DefaultTableModel type_model=new DefaultTableModel();
 	private JTable table_type=new JTable(type_model);
 	
-	 
+	private List<Bean_production> allPro=null;
+	private List<Bean_type> allType=null;
+	private Bean_type curType=null;
+	private Bean_production curPro=null;
 	
 	
-	List<Bean_production> allPro=null;
-	List<Bean_type> allType=null;
-	Bean_type curType=null;
-	Bean_production curPro=null;
+	
 	public void reloadTypeTable(){
 		try {
 			allType=start.Online_Market_Util.production_Manager.load_all_type();

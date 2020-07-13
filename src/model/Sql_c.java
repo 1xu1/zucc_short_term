@@ -7,7 +7,7 @@ import util.DBUtil;
 public class Sql_c {
 	public java.sql.PreparedStatement pt;
 	public java.sql.ResultSet rs;
-	private Connection conn;
+	public Connection conn;
 	
 	public Sql_c() {
 		try {

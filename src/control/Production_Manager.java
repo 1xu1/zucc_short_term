@@ -27,6 +27,7 @@ public class Production_Manager {
 				bb.setCount(s.rs.getInt(2));
 				bb.setType_more(s.rs.getString(3));
 				bb.setType_id(s.rs.getInt(4));
+				//System.out.print(bb.getType_id());
 				b.add(bb);
 			}
 			s.close_all();
@@ -108,7 +109,7 @@ public class Production_Manager {
 		Bean_production bb=null;
 		List<Integer> id=new ArrayList<Integer>();
 		Sql_c s=new Sql_c();
-		String sql="select pro_id from pro_sold order by pro_sold ";
+		String sql="select pro_id from pro_sold order by pro_sold desc";
 		try {
 			s.getRs(sql);
 			while(s.rs.next()) {

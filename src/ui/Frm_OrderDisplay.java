@@ -182,6 +182,10 @@ public class Frm_OrderDisplay extends JDialog  implements ActionListener{
 				JOptionPane.showMessageDialog(null, "请先选中订单", " ", JOptionPane.INFORMATION_MESSAGE);
 				return;
 			}
+			if(curOrder.getOrder_state().equals("已退货")) {
+				JOptionPane.showMessageDialog(null, "不可重复退货", "错误", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 			start.Online_Market_Util.order_Manager.edit_order(curOrder.getOrder_id(), "退货中");
 			JOptionPane.showMessageDialog(null, "退货受理中", "成功", JOptionPane.INFORMATION_MESSAGE);
 			this.reload_shop_menu();

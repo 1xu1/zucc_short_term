@@ -107,6 +107,7 @@ public class Frm_CommentDisplay extends JDialog  implements ActionListener{
 		this.shop_menu_table.validate();
 		this.shop_menu_table.repaint();
 		//this.pri
+		this.setAlwaysOnTop(true);
 	}
 	public void actionPerformed(ActionEvent e) {
 		// TODO 自动生成的方法存根

@@ -44,10 +44,7 @@ public class Frm_ShopMenu extends JDialog  implements ActionListener{
 	
 	public Frm_ShopMenu(List<Bean_production> pro_list) {
 		this.pro_list=pro_list;
-		double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-		this.setLocation((int) (width - this.getWidth()) / 2,
-				(int) (height - this.getHeight()) / 2);
+		
 		this.validate();
 		setTitle("\u8D2D\u7269\u8F66");
 		setBounds(100, 100, 450, 543);
@@ -126,6 +123,10 @@ public class Frm_ShopMenu extends JDialog  implements ActionListener{
 		coupon_label = new JLabel("");
 		coupon_label.setBounds(21, 448, 392, 15);
 		getContentPane().add(coupon_label);
+		double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+		this.setLocation((int) (width - this.getWidth()) / 2,
+				(int) (height - this.getHeight()) / 2);
 	}
 	
 	private JButton cancel_button,ok_button;

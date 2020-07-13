@@ -29,6 +29,7 @@ import javax.swing.JTable;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 public class Frm_Address extends JDialog  implements ActionListener{
 
@@ -107,6 +108,11 @@ public class Frm_Address extends JDialog  implements ActionListener{
 				buttonPane.add(cancel_button);
 			}
 		}
+		double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+		this.setLocation((int) (width - this.getWidth()) / 2,
+				(int) (height - this.getHeight()) / 2);
+		
 	}
 	
 	private JButton cancel_button,ok_button;
@@ -126,6 +132,7 @@ public class Frm_Address extends JDialog  implements ActionListener{
 				JOptionPane.showMessageDialog(null, "请先选中地址", "错误", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
+			
 			start.Online_Market_Util.address_Manager.delete_address(curAdd);
 			this.add_list.remove(this.curAdd_Index);
 			this.reload_add_table();
@@ -136,6 +143,7 @@ public class Frm_Address extends JDialog  implements ActionListener{
 				JOptionPane.showMessageDialog(null, "请先选中地址", "错误", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
+			//System.out.println(curAdd.getAddress_id());
 			dlgEdit=new Frm_AddEdit(curAdd,this);
 			dlgEdit.setVisible(true);
 			this.reload_add_table();

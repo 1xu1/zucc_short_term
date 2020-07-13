@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -27,6 +28,7 @@ public class Frm_UserData extends JDialog  implements ActionListener{
 
 	
 	public Frm_UserData(JFrame f,String s, Boolean c) {
+		setTitle("\u4FEE\u6539\u4E2A\u4EBA\u4FE1\u606F");
 		//super(f,s,c);
 		Bean_user b = start.Online_Market_Util.user_Manager.load_user_data();
 		setBounds(100, 100, 450, 300);
@@ -106,7 +108,11 @@ public class Frm_UserData extends JDialog  implements ActionListener{
 				cancelButton = new JButton("\u53D6\u6D88");
 				cancelButton.addActionListener(this) ;
 				buttonPane.add(cancelButton);
-			
+				double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+				double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+				this.setLocation((int) (width - this.getWidth()) / 2,
+						(int) (height - this.getHeight()) / 2);
+				this.setAlwaysOnTop(true);
 		
 	}
 	private JButton okButton;
